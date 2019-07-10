@@ -1,0 +1,23 @@
+<div class="im-component heroes">
+    <div class="heroes-head">
+        <h2>Heroes</h2>
+    </div>
+    <!--
+    <ul class="heroes">
+        <li *ngFor="let hero of heroes"
+            [class.selected]="hero.id === selectedId"
+            (click)="goToHeroDetail(hero.id)"
+            class="li">          
+            <span class="badge">{{ hero.id }}</span>
+            <span class="text">{{ hero.name }}</span>
+        </li>
+    </ul>
+    -->
+    <div class="heroes-table">
+        <app-table 
+            [body]="heroes"
+            [heads]="heads"
+            [config]="tableConfig">
+        </app-table>
+    </div>
+</div>

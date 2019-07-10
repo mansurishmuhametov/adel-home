@@ -1,0 +1,15 @@
+<div class="im-component">
+    <div class="crisis-component">
+        <h2>Crises</h2>
+        <app-table 
+            [heads]="heads"
+            [body]="body"
+            [config]="tableConfig"
+            (rowClickCallback)="crisisSelected($event[0])">
+        </app-table>
+        <br>
+        <div class="im-outlet">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

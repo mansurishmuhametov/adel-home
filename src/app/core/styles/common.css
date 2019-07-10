@@ -1,0 +1,22 @@
+.im-outlet {
+    border: solid 5px blue;
+    padding: 20px;
+}
+
+.im-name-outlet {
+    border: solid 5px palevioletred;
+    padding: 20px;
+}
+
+.im-component {
+    border: solid 2px grey;
+}
+
+.im-shell {
+    border: solid 5px green;
+    padding: 20px;
+}
+
+.hi {
+    border: solid 2px red;
+}

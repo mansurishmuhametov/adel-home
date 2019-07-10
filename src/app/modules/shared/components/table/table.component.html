@@ -1,0 +1,25 @@
+<table class="table table-sm table-bordered table-hover fixed_header im-table">
+    <thead class="thead-light">
+        <tr>
+            <th *ngFor="let h of heads;"
+                [ngStyle]="getThStyle(h.match)">
+                <span>{{ h.name }}</span>
+            </th>
+            <th class="scroll-head"
+                *ngIf="bodyStyle.height && body.length"></th>
+        </tr>
+    </thead>
+    <tbody [ngStyle]="bodyStyle">
+        <tr *ngFor="let item of body"
+            (click)="rowClick(item)"
+            [ngClass]="{ 'click': rowClickCallback }">
+            <td *ngFor="let h of heads;"
+                [ngStyle]="getTdStyle(h.match)">
+                <span>{{ item[h.match] }}</span>
+            </td>
+        </tr>
+        <tr *ngIf="!body.length">
+            <td colspan="100%">нет данных</td>
+        </tr>
+    </tbody>
+</table>

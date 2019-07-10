@@ -1,0 +1,21 @@
+<div *ngIf="hero" class="im-component">
+    <h2>{{ hero.name }}</h2>
+    <div><span>id: </span>{{ hero.id }}</div>
+    <div>
+        <label>name:
+            <input [(ngModel)]="hero.name" placeholder="name" />
+        </label>
+    </div>
+    <div class="btn btn-primary"
+        (click)="goToHeroes(hero)">
+        Back
+    </div>
+    <div class="btn btn-primary"
+        (click)="goToPreviousHero(hero.id)">
+        <span><</span>
+    </div>
+    <div class="btn btn-primary"
+        (click)="goToNextHero(hero.id)">
+        <span>></span>
+    </div>
+</div>

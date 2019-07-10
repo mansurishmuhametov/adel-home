@@ -1,0 +1,18 @@
+<div class="app im-component">
+    <div class="im-shell">
+        <h1 class="im-component">
+            Angular Router
+        </h1>
+    </div>
+    <div class="im-shell">
+        <app-header></app-header>
+    </div>
+    <div class="im-outlet">        
+        <router-outlet></router-outlet>
+    </div>
+    <div class="im-name-outlet">
+        <div>Popup here</div>
+        <a [routerLink]="['', { outlets: { popup: ['compose'] } }]">Open contact</a>
+        <router-outlet name="popup"></router-outlet>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<h2>LOGIN</h2>
+<p>{{ message }}</p>
+<p>
+    <button (click)="login()"
+            *ngIf="!authService.isLoggedIn"
+            class="btn btn-primary">
+            <span>Login</span>
+    </button>
+    <button (click)="logout()"
+            *ngIf="authService.isLoggedIn"
+            class="btn btn-default">
+            <span>Logout</span>
+    </button>
+</p>

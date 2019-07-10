@@ -1,0 +1,21 @@
+<div *ngIf="crisis"
+    class="im-component">
+    <h2>{{ crisis.name | uppercase }} Details</h2>
+    <div><span>id: </span>{{ crisis.id }}</div>
+    <div>
+        <label>
+            <span>name:</span>
+            <input [(ngModel)]="crisis.name"
+                placeholder="name"
+                class="crisis-detail__name"/>
+        </label>
+    </div>
+    <button (click)="save(crisis)"
+            class="btn btn-primary">
+        Save
+    </button>
+    <button (click)="goToCrises(crisis)"
+            class="btn btn-default">
+        Cancel
+    </button>
+</div>

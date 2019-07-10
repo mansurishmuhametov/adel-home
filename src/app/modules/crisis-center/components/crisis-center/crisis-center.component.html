@@ -1,0 +1,25 @@
+<div class="im-component">
+    <h2>Crisis center</h2>
+    <div class="im-outlet">
+        <router-outlet></router-outlet>
+    </div>
+    <div>
+        <div class="crisis-center__message">
+            <div class="im-name-outlet">
+                <div>
+                    Message here
+                </div>
+                <div (click)="openMessage()"
+                    class="btn btn-primary">
+                    <span>Open</span>
+                </div>
+                <div (click)="closeMessage()"
+                    class="btn btn-light">
+                    <span>Close</span>
+                </div>
+                <hr>
+                <router-outlet name="content"></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<div class="header im-component">
+    <nav>
+        <a routerLink="{{ link.routerLink }}"
+            routerLinkActive="active"
+            class="btn btn-info link"
+            *ngFor="let link of links">
+            {{ link.name }}
+        </a>
+    </nav>
+</div>
