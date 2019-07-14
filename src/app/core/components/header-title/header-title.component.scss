@@ -11,3 +11,15 @@
 .contacts {
     margin-left: 50px;
 }
+
+.link {    
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.logo {   
+    cursor: pointer;
+}

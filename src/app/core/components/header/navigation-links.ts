@@ -23,7 +23,7 @@ const links: NavigationLink[] = [
     },
     {
         name: 'Одежда',
-        routerLink: '/admin',
+        routerLink: '/heroes',
         order: 4
     }
 ];

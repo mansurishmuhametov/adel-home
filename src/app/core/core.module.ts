@@ -8,6 +8,7 @@ import { SharedModule } from '@app-shared/shared.module';
 import { PageNotFoundComponent } from '@app/core/components/page-not-found/page-not-found.component';
 import { HeaderComponent } from '@app-core/components/header/header.component';
 import { HeaderTitleComponent } from './components/header-title/header-title.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
     imports: [
@@ -19,10 +20,12 @@ import { HeaderTitleComponent } from './components/header-title/header-title.com
     declarations: [
         PageNotFoundComponent,
         HeaderComponent,
-        HeaderTitleComponent
+        HeaderTitleComponent,
+        FooterComponent
     ],
     exports: [
-        HeaderComponent
+        HeaderComponent,
+        FooterComponent
     ],
     providers: []
 })

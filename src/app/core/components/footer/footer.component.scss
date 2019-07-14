@@ -1,0 +1,13 @@
+$color-grey: #EEEEEE;
+$color-red: #BD2036;
+
+.footer {
+    display: flex;
+    background-color: $color-red;
+
+    &__content {      
+        height: 63px;  
+        align-self: center;
+        width: 100%;
+    }
+}

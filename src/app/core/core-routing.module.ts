@@ -26,13 +26,17 @@ const routes: Routes = [
         loadChildren: '@app-modules/heroes/heroes.module#HeroesModule'
     },
     {
+        path: 'contacts',
+        loadChildren: '@app-modules/contacts/contacts.module#ContactsModule'
+    },
+    {
         path: '',
-        redirectTo: 'heroes',
+        loadChildren: '@app-modules/home/home.module#HomeModule',
         pathMatch: 'full'
     },
     {
         path: '**',
-        component: PageNotFoundComponent
+        redirectTo: '',
     }
 ];
 
