@@ -1,0 +1,17 @@
+.navigation {
+    font-size: 16px;
+
+    &__link {
+        margin-right: 5px;
+        display: table-cell;
+        height: 56px;
+        vertical-align: middle;
+        padding-left: 28px;
+        padding-right: 28px;
+
+        &:hover {
+            cursor: pointer;
+            background-color: #EEE;
+        }
+    }
+}

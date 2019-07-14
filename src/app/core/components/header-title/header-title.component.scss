@@ -1,0 +1,13 @@
+.title {
+    height: 63px;
+    display: flex;
+
+    &__content {
+        align-self: center;
+        width: 100%;
+    }
+}
+
+.contacts {
+    margin-left: 50px;
+}

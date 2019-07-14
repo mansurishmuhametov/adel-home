@@ -1,3 +1,14 @@
+body {
+    padding: 0;
+    margin: 0;    
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 14px;
+    font-weight: 400;
+    font-family: Helvetica,Arial,sans-serif;
+    line-height: 1.46429em;
+    background-color: #FFFFFF;
+}
+
 .im-outlet {
     border: solid 5px blue;
     padding: 20px;
@@ -18,5 +29,17 @@
 }
 
 .hi {
-    border: solid 2px red;
+    border: solid 2px palevioletred;
+}
+
+.hi-green {
+    border: solid 2px green;
+}
+
+.hi-blue {
+    border: solid 2px paleturquoise;
+}
+
+.hi-golden {
+    border: solid 2px palegoldenrod;
 }

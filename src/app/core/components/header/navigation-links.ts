@@ -2,24 +2,29 @@ import { NavigationLink } from './navigation-link';
 
 const links: NavigationLink[] = [
     {
-        name: 'Crisis Center',
+        name: 'Постель',
         routerLink: '/crises',
         order: 0
     },
     {
-        name: 'Heroes',
+        name: 'Одеяло',
         routerLink: '/heroes',
         order: 1
     },
     {
-        name: 'My crisis center',
+        name: 'Подушки',
         routerLink: '/crisis-center',
         order: 2
     },
     {
-        name: 'Admin',
+        name: 'Полотенца',
         routerLink: '/admin',
         order: 3
+    },
+    {
+        name: 'Одежда',
+        routerLink: '/admin',
+        order: 4
     }
 ];
 

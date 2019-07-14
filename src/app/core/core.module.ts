@@ -5,9 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { CoreRoutingModule } from './core-routing.module';
 import { SharedModule } from '@app-shared/shared.module';
 
-import { ComposeMessageComponent } from '@app-core/components/compose-message/compose-message.component';
 import { PageNotFoundComponent } from '@app/core/components/page-not-found/page-not-found.component';
 import { HeaderComponent } from '@app-core/components/header/header.component';
+import { HeaderTitleComponent } from './components/header-title/header-title.component';
 
 @NgModule({
     imports: [
@@ -17,12 +17,11 @@ import { HeaderComponent } from '@app-core/components/header/header.component';
         SharedModule
     ],
     declarations: [
-        ComposeMessageComponent,
         PageNotFoundComponent,
-        HeaderComponent
+        HeaderComponent,
+        HeaderTitleComponent
     ],
     exports: [
-        ComposeMessageComponent,
         HeaderComponent
     ],
     providers: []
