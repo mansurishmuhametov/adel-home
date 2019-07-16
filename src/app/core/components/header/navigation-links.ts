@@ -2,7 +2,7 @@ import { NavigationLink } from './navigation-link';
 
 const links: NavigationLink[] = [
     {
-        name: 'Постель',
+        name: 'Комплекты',
         routerLink: '/crises',
         order: 0
     },

@@ -6,6 +6,7 @@ import { DialogService } from './services/dialog/dialog.service';
 
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { TableComponent } from './components/table/table.component';
+import { LogoComponent } from './components/logo/logo.component';
 
 @NgModule({
     imports: [
@@ -14,11 +15,13 @@ import { TableComponent } from './components/table/table.component';
     ],
     declarations: [
         NavigationComponent,
-        TableComponent
+        TableComponent,
+        LogoComponent
     ],
     exports: [
         NavigationComponent,
-        TableComponent
+        TableComponent,
+        LogoComponent
     ],
     providers: [
         DialogService

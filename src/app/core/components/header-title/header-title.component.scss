@@ -1,7 +1,6 @@
 .title {
     height: 63px;
     display: flex;
-    padding-left: 30px;
 
     &__content {
         align-self: center;
@@ -15,10 +14,6 @@
 
 .link {    
     cursor: pointer;
-
-    &:hover {
-        text-decoration: underline;
-    }
 }
 
 .logo {   

@@ -1,13 +1,15 @@
 $color-grey: #EEEEEE;
 $color-red: #BD2036;
+$color-white: #FFFFFF;
 
 .footer {
-    display: flex;
     background-color: $color-red;
+    flex: 0 0 auto;
 
-    &__content {      
+    &__content {
         height: 63px;  
         align-self: center;
         width: 100%;
+        color: $color-white;
     }
 }
