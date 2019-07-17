@@ -15,7 +15,7 @@ const routes: Routes = [
     {
         path: 'crisis-center',
         loadChildren: '@app-modules/crisis-center/crisis-center.module#CrisisCenterModule',
-        data: { preload: true }
+        data: { preload: false }
     },
     {
         path: 'login',
@@ -27,12 +27,14 @@ const routes: Routes = [
     },
     {
         path: 'contacts',
-        loadChildren: '@app-modules/contacts/contacts.module#ContactsModule'
+        loadChildren: '@app-modules/contacts/contacts.module#ContactsModule',
+        data: { preload: true }
     },
     {
         path: '',
         loadChildren: '@app-modules/home/home.module#HomeModule',
-        pathMatch: 'full'
+        pathMatch: 'full',
+        data: { preload: true }
     },
     {
         path: '**',
@@ -46,7 +48,7 @@ const routes: Routes = [
             routes,
             {
                 enableTracing: false,
-                // preloadingStrategy: PreloadAllModules
+                // preloadingStrategy: PreloadAllModules,
                 preloadingStrategy: PreloadingStrategyService
             }
         )

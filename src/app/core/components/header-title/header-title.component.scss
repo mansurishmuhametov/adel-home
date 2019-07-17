@@ -5,11 +5,17 @@
     &__content {
         align-self: center;
         width: 100%;
+        position: relative;
     }
 }
 
 .contacts {
     margin-left: 50px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: inline-flex;
+    align-items: center;
 }
 
 .link {    
