@@ -1,3 +1,5 @@
+@import '../../../../core/styles/main-colors.scss';
+
 .contacts {
     margin-top: 16px;
     margin-bottom: 16px;
@@ -13,6 +15,7 @@
 .title {
     display: inline-block;
     width: 120px;
+    color: $mainColorGreyFont;
 }
 
 .value {

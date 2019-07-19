@@ -1,15 +1,13 @@
-$color-grey: #EEEEEE;
-$color-red: #BD2036;
-$color-white: #FFFFFF;
+@import '../../../core/styles/main-colors.scss';
 
 .footer {
-    background-color: $color-red;
+    background-color: $mainColorRed;
     flex: 0 0 auto;
 
     &__content {
         height: 63px;  
         align-self: center;
         width: 100%;
-        color: $color-white;
+        color: $mainColorWhite;
     }
 }

@@ -31,6 +31,11 @@ const routes: Routes = [
         data: { preload: true }
     },
     {
+        path: 'products',
+        loadChildren: '@app-modules/products/products.module#ProductsModule',
+        data: { preload: true }
+    },
+    {
         path: '',
         loadChildren: '@app-modules/home/home.module#HomeModule',
         pathMatch: 'full',

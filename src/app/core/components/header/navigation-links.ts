@@ -3,27 +3,27 @@ import { NavigationLink } from './navigation-link';
 const links: NavigationLink[] = [
     {
         name: 'Комплекты',
-        routerLink: '/crises',
+        routerLink: 'products/beddingsets',
         order: 0
     },
     {
         name: 'Одеяло',
-        routerLink: '/heroes',
+        routerLink: 'products/blankets',
         order: 1
     },
     {
         name: 'Подушки',
-        routerLink: '/crisis-center',
+        routerLink: 'products/pillows',
         order: 2
     },
     {
         name: 'Полотенца',
-        routerLink: '/admin',
+        routerLink: 'products/towels',
         order: 3
     },
     {
         name: 'Одежда',
-        routerLink: '/heroes',
+        routerLink: 'products/clothes',
         order: 4
     }
 ];
