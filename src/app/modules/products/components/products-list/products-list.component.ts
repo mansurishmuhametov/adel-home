@@ -4,17 +4,19 @@ import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 
 @Component({
-    selector: 'app-products',
-    templateUrl: './products.component.html',
-    styleUrls: ['./products.component.css']
+    selector: 'app-products-list',
+    templateUrl: './products-list.component.html',
+    styleUrls: ['./products-list.component.scss']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsListComponent implements OnInit {
     private category: string;
 
     constructor(
         private readonly route: ActivatedRoute,
         private readonly router: Router
     ) { }
+
+    public counts = [1, 2, 3, 4, 5, 6];
 
     ngOnInit() {
         this.route.paramMap

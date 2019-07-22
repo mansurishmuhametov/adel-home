@@ -1,0 +1,25 @@
+@import '../../../../core/styles/main-colors.scss';
+
+.product {    
+    border: solid 1px $mainColorGrey;
+    width: 100%;
+    display: inline-block;
+    padding: 8px;
+}
+
+.image {
+    width: 100%;
+}
+
+.price {
+    display: inline-block;
+}
+
+.inStock {
+    color: white;
+    border-radius: 3px;
+    background-color: $mainColorGreen;
+    float: right;
+    text-align: right;
+    padding: 2px 7px;
+}

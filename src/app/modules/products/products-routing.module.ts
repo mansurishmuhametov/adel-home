@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ProductsComponent } from './components/products/products.component';
+import { ProductsListComponent } from './components/products-list/products-list.component';
 
 const routes: Routes = [
     {
         path: '',
-        component: ProductsComponent,
+        component: ProductsListComponent,
         children: []
     },
     {
         path: ':category',
-        component: ProductsComponent
+        component: ProductsListComponent
     }
 ];
 
