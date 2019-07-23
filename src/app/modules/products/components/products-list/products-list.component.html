@@ -1,6 +1,6 @@
 <div class="products-list">
-    <div *ngFor="let i of counts"
+    <div *ngFor="let id of ids"
         class="product-wrapper">
-        <app-product></app-product>
+        <app-product [Id]="id"></app-product>
     </div>
 </div>

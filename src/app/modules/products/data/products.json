@@ -1,0 +1,110 @@
+[
+    {
+        "id": "40c199aa-3921-4fc8-b344-b220db7efa01",
+        "name": "Комплект 1",
+        "category": "beddingSet",
+        "price": "2400",
+        "description": "Some description",
+        "isInStock": false,
+        "imageId": "40c199aa-3921-4fc8-b344-b220db7efa07"
+    },
+    {
+        "id": "40c199aa-3921-4fc8-b344-b220db7efa02",
+        "name": "Комплект 2",
+        "category": "beddingSet",
+        "price": "2400",
+        "description": "Some description",
+        "isInStock": true,
+        "imageId": "90ec9527-c488-4728-8591-d1adcd13d2c8"
+    },
+    {
+        "id": "40c199aa-3921-4fc8-b344-b220db7efa03",
+        "name": "Комплект 3",
+        "category": "beddingSet",
+        "price": "2400",
+        "description": "Some description",
+        "isInStock": false,
+        "imageId": "53102070-d270-473a-af60-8fcc77ca1bff"
+    },
+    {
+        "id": "40c199aa-3921-4fc8-b344-b220db7efa04",
+        "name": "Комплект 4",
+        "category": "beddingSet",
+        "price": "2400",
+        "description": "Some description",
+        "isInStock": true,
+        "imageId": "a292bba5-2e69-43c1-a5a2-7143f7ff56a9"
+    },
+    {
+        "id": "40c199aa-3921-4fc8-b344-b220db7efa05",
+        "name": "Комплект 5",
+        "category": "beddingSet",
+        "price": "2400",
+        "description": "Some description",
+        "isInStock": false,
+        "imageId": "c28d9d12-2eaa-45b6-b3cf-cec5e7e11ca7"
+    },
+    {
+        "id": "40c199aa-3921-4fc8-b344-b220db7efa06",
+        "name": "Комплект 6",
+        "category": "beddingSet",
+        "price": "2400",
+        "description": "Some description",
+        "isInStock": true,
+        "imageId": "c69ab98f-7b96-43f2-ab24-c6f3aad1f3e9"
+    },
+    {
+        "id": "53102070-d270-473a-af60-8fcc77ca1b1",
+        "name": "Халат 1",
+        "category": "clothes",
+        "price": "2400",
+        "description": "Some description",
+        "isInStock": false,
+        "imageId": "7e8a90f3-174c-444a-b395-990c93e58061"
+    },
+    {
+        "id": "53102070-d270-473a-af60-8fcc77ca1b2",
+        "name": "Халат 2",
+        "category": "clothes",
+        "price": "2400",
+        "description": "Some description",
+        "isInStock": true,
+        "imageId": "75bddeb7-458a-4270-b66a-337bdd9a6260"
+    },
+    {
+        "id": "53102070-d270-473a-af60-8fcc77ca1b3",
+        "name": "Халат 3",
+        "category": "clothes",
+        "price": "2400",
+        "description": "Some description",
+        "isInStock": false,
+        "imageId": "35976c28-1025-4c80-8787-9e6283512692"
+    },
+    {
+        "id": "53102070-d270-473a-af60-8fcc77ca1b4",
+        "name": "Халат 4",
+        "category": "clothes",
+        "price": "2400",
+        "description": "Some description",
+        "isInStock": true,
+        "imageId": "124343ff-e946-4b89-8253-d0fa679549ab"
+    },
+    {
+        "id": "53102070-d270-473a-af60-8fcc77ca1b5",
+        "name": "Халат 5",
+        "category": "clothes",
+        "price": "2400",
+        "description": "Some description",
+        "isInStock": false,
+        "imageId": "b3e3568a-d0b5-44b0-922d-0d18e7b0c67e"
+    },
+    {
+        "id": "53102070-d270-473a-af60-8fcc77ca1b6",
+        "name": "Халат 6",
+        "category": "clothes",
+        "price": "2400",
+        "description": "Some description",
+        "isInStock": true,
+        "imageId": "b6e34117-1ebe-47cb-8d0d-946a77fc457f"
+    }
+]
