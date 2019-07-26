@@ -1,16 +1,14 @@
 <div class="product">
     <div *ngIf="Product">
         <img [src]="IconUrl" alt="товар" class="image">
-        <div class="content">
-            <div class="name">
-                {{ Product.name }}
-            </div>
-            <div class="price">
-                {{ Product.price }}
-                <span>руб.</span>
-            </div>
+        <div class="name">
+            {{ Product.Name }}
         </div>
-        <div class="inStock" *ngIf="Product.isInStock">
+        <div class="price">
+            <strong>{{ Product.Price }}</strong>
+            <span>руб.</span>
+        </div>
+        <div class="inStock" *ngIf="Product.IsInStock">
             В наличии
         </div>
     </div>

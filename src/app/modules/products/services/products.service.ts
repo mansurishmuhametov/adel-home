@@ -35,7 +35,6 @@ export class ProductsService {
     public get(id: string): Observable<any> {
         return of(productsList)
             .pipe(
-                delay(1000),
                 map(items => {
                     const jsonProd: any = _.find(items, item => item.id === id);
                     let result: Product = null;
@@ -43,6 +42,7 @@ export class ProductsService {
                     if (jsonProd) {
                         const price = _.parseInt(jsonProd.price);
 
+                        // tslint:disable-next-line:max-line-length
                         result = new Product(jsonProd.id, jsonProd.name, jsonProd.category, price, jsonProd.description, jsonProd.isInStock, jsonProd.imageId);
                     }
 
