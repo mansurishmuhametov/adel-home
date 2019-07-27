@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('angular-router-sample App', () => {
+describe('adel-home App', () => {
   let page: AppPage;
 
   beforeEach(() => {

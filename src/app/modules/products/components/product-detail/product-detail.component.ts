@@ -1,21 +1,25 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { takeUntil, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Subject } from 'rxjs/Subject';
 
 import { ProductsService } from '../../services/products.service';
-import { ProductFilter } from '../../models/product-filter';
-import { Category } from '../../models/category';
+import { Product } from '../../models/product';
 
 @Component({
-    selector: 'app-products-list',
-    templateUrl: './products-list.component.html',
-    styleUrls: ['./products-list.component.scss']
+    selector: 'app-product-detail',
+    templateUrl: './product-detail.component.html',
+    styleUrls: ['./product-detail.component.scss']
 })
-export class ProductsListComponent implements OnInit, OnDestroy {
-    private category: string;
+export class ProductDetailComponent implements OnInit, OnDestroy {
     private destroy$: Subject<boolean> = new Subject<boolean>();
+    private id: string;
+    private product: Product;
+
+    public get Id(): string {
+        return this.id;
+    }
 
     constructor(
         private readonly route: ActivatedRoute,
@@ -23,42 +27,35 @@ export class ProductsListComponent implements OnInit, OnDestroy {
         private readonly productsService: ProductsService
     ) { }
 
-    public ids: string[];
-
     public ngOnInit(): void {
         this.route.paramMap
             .pipe(
                 switchMap((params: ParamMap) => {
-                    const category: string = params.get('category') || null;
+                    const id: string = params.get('id') || null;
 
-                    return of(category);
+                    return of(id);
                 }),
                 takeUntil(this.destroy$)
             )
-            .subscribe(category => {
-                this.category = category;
+            .subscribe(id => {
+                this.id = id;
                 this.refresh();
             });
     }
 
     public refresh(): void {
-        const filter: ProductFilter = new ProductFilter(Category[this.category]);
-
-        this.productsService.getIds(filter)
+        this.productsService.get(this.id)
             .pipe(
                 takeUntil(this.destroy$)
             )
-            .subscribe(ids => {
-                this.ids = ids;
+            .subscribe(product => {
+                this.product = product;
+                console.log(this.product);
             });
     }
 
     public ngOnDestroy(): void {
         this.destroy$.next(true);
         this.destroy$.complete();
-    }
-
-    public goToDetail(id): void {
-        this.router.navigate(['/products', id]);
     }
 }

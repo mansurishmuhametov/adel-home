@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ProductsListComponent } from './components/products-list/products-list.component';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 
 const routes: Routes = [
     {
@@ -10,13 +11,17 @@ const routes: Routes = [
         children: []
     },
     {
-        path: ':category',
+        path: 'category/:category',
         component: ProductsListComponent
+    },
+    {
+        path: ':id',
+        component: ProductDetailComponent
     }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
 })
 export class ProductsRoutingModule { }
