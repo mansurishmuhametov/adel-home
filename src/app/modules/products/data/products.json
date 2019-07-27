@@ -53,58 +53,38 @@
         "isInStock": true,
         "imageId": "c69ab98f-7b96-43f2-ab24-c6f3aad1f3e9"
     },
+
+
+
+
     {
-        "id": "53102070-d270-473a-af60-8fcc77ca1b1",
-        "name": "Халат 1",
-        "category": "clothes",
-        "price": "2400",
-        "description": "Some description",
-        "isInStock": false,
-        "imageId": "7e8a90f3-174c-444a-b395-990c93e58061"
-    },
-    {
-        "id": "53102070-d270-473a-af60-8fcc77ca1b2",
-        "name": "Халат 2",
+        "id": "4d53e883-90d8-4271-bad9-542c57b2e253",
+        "name": "Пижама в клетку",
         "category": "clothes",
         "price": "2400",
         "description": "Some description",
         "isInStock": true,
-        "imageId": "75bddeb7-458a-4270-b66a-337bdd9a6260"
+        "imageId": "4d53e883-90d8-4271-bad9-542c57b2e25e",
+        "relevance": 0
     },
     {
-        "id": "53102070-d270-473a-af60-8fcc77ca1b3",
-        "name": "Халат 3",
-        "category": "clothes",
-        "price": "2400",
-        "description": "Some description",
-        "isInStock": false,
-        "imageId": "35976c28-1025-4c80-8787-9e6283512692"
-    },
-    {
-        "id": "53102070-d270-473a-af60-8fcc77ca1b4",
-        "name": "Халат 4",
+        "id": "75a046c2-88c9-41fe-9398-bcdf71de8598",
+        "name": "Пижама с котятами",
         "category": "clothes",
         "price": "2400",
         "description": "Some description",
         "isInStock": true,
-        "imageId": "124343ff-e946-4b89-8253-d0fa679549ab"
+        "imageId": "75a046c2-88c9-41fe-9398-bcdf71de855a",
+        "relevance": 0
     },
     {
-        "id": "53102070-d270-473a-af60-8fcc77ca1b5",
-        "name": "Халат 5",
-        "category": "clothes",
-        "price": "2400",
-        "description": "Some description",
-        "isInStock": false,
-        "imageId": "b3e3568a-d0b5-44b0-922d-0d18e7b0c67e"
-    },
-    {
-        "id": "53102070-d270-473a-af60-8fcc77ca1b6",
-        "name": "Халат 6",
+        "id": "129d2fa7-3052-4237-aee3-3fe6742b0342",
+        "name": "Пижама однотонная",
         "category": "clothes",
         "price": "2400",
         "description": "Some description",
         "isInStock": true,
-        "imageId": "b6e34117-1ebe-47cb-8d0d-946a77fc457f"
+        "imageId": "129d2fa7-3052-4237-aee3-3fe6742b03ca",
+        "relevance": 0
     }
 ]

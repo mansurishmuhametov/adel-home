@@ -8,6 +8,10 @@
 .product-wrapper {
     display: inline-block;
     width: 25%;
-    min-height: 310px;
+    height: 320px;
     border: solid 1px $mainColorGrey;
+}
+
+.product-content {
+    height: 100%;
 }

@@ -1,6 +1,8 @@
 <div class="products-list">
     <div *ngFor="let id of ids"
         class="product-wrapper">
-        <app-product [Id]="id"></app-product>
+        <div class="product-content">
+            <app-product [Id]="id"></app-product>
+        </div>
     </div>
 </div>
