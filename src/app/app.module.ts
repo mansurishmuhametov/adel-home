@@ -3,13 +3,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+// import { AngularFireModule } from 'angularfire2';
+// import { AngularFireDatabaseModule } from 'angularfire2/database';
+
+// import { environment } from 'environments/environment';
 
 import { CoreModule } from '@app/core/core.module';
 
 import { AppComponent } from '@app-core/components/app/app.component';
 
 import { AuthGuard } from '@app/modules/auth/guards/auth.guard';
-
 import { AuthService } from '@app/modules/auth/services/auth.service';
 
 @NgModule({
@@ -20,6 +23,8 @@ import { AuthService } from '@app/modules/auth/services/auth.service';
         RouterModule,
         // CoreModule have to be the last, cause default route
         CoreModule
+        //AngularFireModule.initializeApp(environment.firebase),
+        //AngularFireDatabaseModule
     ],
     declarations: [
         AppComponent

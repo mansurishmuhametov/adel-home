@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { takeUntil, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Subject } from 'rxjs/Subject';
+// import { AngularFireDatabase } from 'angularfire2/database';
 
 import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/product';
@@ -24,7 +25,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     constructor(
         private readonly route: ActivatedRoute,
         private readonly router: Router,
-        private readonly productsService: ProductsService
+        private readonly productsService: ProductsService,
+        //private readonly db: AngularFireDatabase
     ) { }
 
     public ngOnInit(): void {
@@ -41,6 +43,12 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
                 this.id = id;
                 this.refresh();
             });
+
+        // this.db.list('/categories')
+        //     .subscribe(data => {
+        //         // 01
+        //         debugger;
+        //     });
     }
 
     public refresh(): void {
