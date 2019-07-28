@@ -9,35 +9,35 @@ import { PreloadingStrategyService } from '@app-core/services/preloading-strateg
 const routes: Routes = [
     {
         path: 'admin',
-        loadChildren: '@app-modules/admin/admin.module#AdminModule',
+        loadChildren: () => import('@app-modules/admin/admin.module').then(m => m.AdminModule),
         canLoad: [AuthGuard]
     },
     {
         path: 'crisis-center',
-        loadChildren: '@app-modules/crisis-center/crisis-center.module#CrisisCenterModule',
+        loadChildren: () => import('@app-modules/crisis-center/crisis-center.module').then(m => m.CrisisCenterModule),
         data: { preload: false }
     },
     {
         path: 'login',
-        loadChildren: '@app-modules/auth/auth.module#AuthModule'
+        loadChildren: () => import('@app-modules/auth/auth.module').then(m => m.AuthModule)
     },
     {
         path: 'heroes',
-        loadChildren: '@app-modules/heroes/heroes.module#HeroesModule'
+        loadChildren: () => import('@app-modules/heroes/heroes.module').then(m => m.HeroesModule)
     },
     {
         path: 'contacts',
-        loadChildren: '@app-modules/contacts/contacts.module#ContactsModule',
+        loadChildren: () => import('@app-modules/contacts/contacts.module').then(m => m.ContactsModule),
         data: { preload: true }
     },
     {
         path: 'products',
-        loadChildren: '@app-modules/products/products.module#ProductsModule',
+        loadChildren: () => import('@app-modules/products/products.module').then(m => m.ProductsModule),
         data: { preload: true }
     },
     {
         path: '',
-        loadChildren: '@app-modules/home/home.module#HomeModule',
+        loadChildren: () => import('@app-modules/home/home.module').then(m => m.HomeModule),
         pathMatch: 'full',
         data: { preload: true }
     },
