@@ -37,9 +37,6 @@ export class ProductComponent implements OnInit, OnDestroy {
     ) { }
 
     public ngOnInit(): void {
-        // 07
-        debugger;
-
         this.productsService.get(this.id)
             .pipe(
                 takeUntil(this.destroy$)
