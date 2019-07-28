@@ -18,7 +18,7 @@ export class ProductsService {
     ) { }
 
     public getAll(): Observable<Product[]> {
-        return of(productsList)
+        return of(productsList.default)
             .pipe(
                 map(products => {
                     const result: Product[] = _.map(products, item => {
@@ -33,7 +33,7 @@ export class ProductsService {
     }
 
     public get(id: string): Observable<any> {
-        return of(productsList)
+        return of(productsList.default)
             .pipe(
                 map(items => {
                     const jsonProd: any = _.find(items, item => item.id === id);
@@ -52,7 +52,7 @@ export class ProductsService {
     }
 
     public getIds(filter: ProductFilter): Observable<string[]> {
-        return of(productsList)
+        return of(productsList.default)
             .pipe(
                 map(products => {
                     const filtered: any[] = _.filter(products, item => item.category === filter.Category);
