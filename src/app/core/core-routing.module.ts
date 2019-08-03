@@ -38,16 +38,6 @@ const routes: Routes = [
         loadChildren: () => import('@app-modules/heroes/heroes.module').then(m => m.HeroesModule)
     },
     {
-        path: 'contacts',
-        loadChildren: () => import('@app-modules/contacts/contacts.module').then(m => m.ContactsModule),
-        data: { preload: true }
-    },
-    {
-        path: 'products',
-        loadChildren: () => import('@app-modules/products/products.module').then(m => m.ProductsModule),
-        data: { preload: true }
-    },
-    {
         path: '',
         pathMatch: 'full',
         redirectTo: 'clients'
