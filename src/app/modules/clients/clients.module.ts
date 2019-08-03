@@ -8,6 +8,8 @@ import { ClientsComponent } from './components/clients/clients.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderTitleComponent } from './components/header-title/header-title.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+
 import { HomeModule } from './modules/home/home.module';
 
 
@@ -22,7 +24,8 @@ import { HomeModule } from './modules/home/home.module';
         ClientsComponent,
         HeaderComponent,
         FooterComponent,
-        HeaderTitleComponent
+        HeaderTitleComponent,
+        PageNotFoundComponent
     ]
 })
 export class ClientsModule { }

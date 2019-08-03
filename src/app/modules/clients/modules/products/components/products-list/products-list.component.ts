@@ -18,7 +18,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     private destroy$: Subject<boolean> = new Subject<boolean>();
 
     constructor(
-        private readonly route: ActivatedRoute,
+        private readonly activatedRoute: ActivatedRoute,
         private readonly router: Router,
         private readonly productsService: ProductsService
     ) { }
@@ -26,7 +26,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     public ids: string[];
 
     public ngOnInit(): void {
-        this.route.paramMap
+        this.activatedRoute.paramMap
             .pipe(
                 switchMap((params: ParamMap) => {
                     const category: string = params.get('category') || null;
@@ -59,6 +59,6 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     }
 
     public goToDetail(id): void {
-        this.router.navigate(['./', id]);
+        this.router.navigate(['../../', id], { relativeTo: this.activatedRoute });
     }
 }

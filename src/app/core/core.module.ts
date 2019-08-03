@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { CoreRoutingModule } from './core-routing.module';
 import { SharedModule } from '@app-shared/shared.module';
 
-import { PageNotFoundComponent } from '@app/core/components/page-not-found/page-not-found.component';
 import { HeaderComponent } from '@app-core/components/header/header.component';
 import { HeaderTitleComponent } from './components/header-title/header-title.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -18,7 +17,6 @@ import { FooterComponent } from './components/footer/footer.component';
         SharedModule
     ],
     declarations: [
-        PageNotFoundComponent,
         HeaderComponent,
         HeaderTitleComponent,
         FooterComponent

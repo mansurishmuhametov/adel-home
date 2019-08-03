@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ClientsComponent } from './components/clients/clients.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 const clientsRoutes: Routes = [
     {
@@ -28,7 +29,12 @@ const clientsRoutes: Routes = [
             },
             {
                 path: '',
-                redirectTo: 'home'
+                redirectTo: 'home',
+                pathMatch: 'full'
+            },
+            {
+                path: '**',
+                component: PageNotFoundComponent
             }
         ]
     }
