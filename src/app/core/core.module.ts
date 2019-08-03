@@ -4,17 +4,20 @@ import { FormsModule } from '@angular/forms';
 
 import { CoreRoutingModule } from './core-routing.module';
 import { SharedModule } from '@app-shared/shared.module';
+import { WebApiModule } from './modules/web-api/web-api.module';
 
 import { HeaderComponent } from '@app-core/components/header/header.component';
 import { HeaderTitleComponent } from './components/header-title/header-title.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { WebApiService } from './modules/web-api/services/web-api.service';
 
 @NgModule({
     imports: [
         CommonModule,
         CoreRoutingModule,
         FormsModule,
-        SharedModule
+        SharedModule,
+        WebApiModule
     ],
     declarations: [
         HeaderComponent,
@@ -25,6 +28,8 @@ import { FooterComponent } from './components/footer/footer.component';
         HeaderComponent,
         FooterComponent
     ],
-    providers: []
+    providers: [
+        WebApiService
+    ]
 })
 export class CoreModule { }

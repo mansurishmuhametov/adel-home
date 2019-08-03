@@ -10,9 +10,9 @@ const clientsRoutes: Routes = [
         component: ClientsComponent,
         children: [
             {
-                path: 'contacts',
-                loadChildren: () => import('./modules/contacts/contacts.module')
-                    .then(m => m.ContactsModule),
+                path: 'home',
+                loadChildren: () => import('./modules/home/home.module')
+                    .then(m => m.HomeModule),
                 data: { preload: true }
             },
             {
@@ -22,9 +22,9 @@ const clientsRoutes: Routes = [
                 data: { preload: true }
             },
             {
-                path: 'home',
-                loadChildren: () => import('./modules/home/home.module')
-                    .then(m => m.HomeModule),
+                path: 'contacts',
+                loadChildren: () => import('./modules/contacts/contacts.module')
+                    .then(m => m.ContactsModule),
                 data: { preload: true }
             },
             {

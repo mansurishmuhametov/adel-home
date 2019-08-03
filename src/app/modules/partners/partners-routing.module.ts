@@ -6,7 +6,15 @@ import { PartnersComponent } from './components/partners/partners.component';
 const partnersRoutes: Routes = [
     {
         path: '',
-        component: PartnersComponent
+        component: PartnersComponent,
+        children: [            
+            {
+                path: 'categories',
+                loadChildren: () => import('./modules/categories/categories.module')
+                    .then(m => m.CategoriesModule),
+                data: { preload: true }
+            }
+        ]
     }
 ];
 
