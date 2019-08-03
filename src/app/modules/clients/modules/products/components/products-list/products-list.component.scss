@@ -1,0 +1,17 @@
+@import './src/app/core/styles/main-colors.scss';
+
+.products-list {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.product-wrapper {
+    display: inline-block;
+    width: 25%;
+    height: 320px;
+    border: solid 1px $mainColorGrey;
+}
+
+.product-content {
+    height: 100%;
+}

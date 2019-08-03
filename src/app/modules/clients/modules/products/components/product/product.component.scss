@@ -1,0 +1,44 @@
+@import '../../../../../../core/styles/main-colors.scss';
+
+.product {
+    padding: 8px;
+    height: 100%;
+    cursor: pointer;
+}
+
+.content {
+    position: relative;
+    height: 100%;
+}
+
+.image {
+    height: 100%;
+}
+
+.image-wrapper {
+    height: 100%;
+    padding-bottom: 52px;
+    text-align: center;
+}
+
+.brief-wrapper {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.price {
+    display: inline-block;
+}
+
+.inStock {
+    color: white;
+    border-radius: 3px;
+    background-color: $mainColorGreen;
+    padding: 2px 7px;
+    display: inline-block;
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+}

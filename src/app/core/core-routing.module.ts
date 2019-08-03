@@ -8,6 +8,18 @@ import { PreloadingStrategyService } from '@app-core/services/preloading-strateg
 
 const routes: Routes = [
     {
+        path: 'clients',
+        loadChildren: () => import('@app-modules/clients/clients.module')
+            .then(m => m.ClientsModule),
+        data: { preload: true }
+    },
+    {
+        path: 'partners',
+        loadChildren: () => import('@app-modules/partners/partners.module')
+            .then(m => m.PartnersModule),
+        data: { preload: false }
+    },
+    {
         path: 'admin',
         loadChildren: () => import('@app-modules/admin/admin.module').then(m => m.AdminModule),
         canLoad: [AuthGuard]
@@ -37,13 +49,12 @@ const routes: Routes = [
     },
     {
         path: '',
-        loadChildren: () => import('@app-modules/home/home.module').then(m => m.HomeModule),
         pathMatch: 'full',
-        data: { preload: true }
+        redirectTo: 'clients'
     },
     {
         path: '**',
-        redirectTo: '',
+        redirectTo: ''
     }
 ];
 

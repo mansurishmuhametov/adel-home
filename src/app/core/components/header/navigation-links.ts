@@ -3,11 +3,11 @@ import { NavigationLink } from './navigation-link';
 const links: NavigationLink[] = [
     {
         name: 'Комплекты',
-        routerLink: 'products/category/beddingSet'
+        routerLink: 'clients/category/beddingSet'
     },
     {
         name: 'Одежда',
-        routerLink: 'products/category/clothes'
+        routerLink: 'clients/category/clothes'
     }
 ];
 

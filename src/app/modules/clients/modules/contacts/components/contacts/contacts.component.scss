@@ -1,0 +1,28 @@
+@import '../../../../../../core/styles/main-colors.scss';
+
+.contacts {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    height: 100%;
+    width: 100%;
+}
+
+.map-wrap {
+    height: 610px;
+    width: 1110px;
+}
+
+.title {
+    display: inline-block;
+    width: 120px;
+    color: $mainColorGreyFont;
+}
+
+.value {
+    display: inline-block;
+    width: 400px;
+}
+
+.coordinates {
+    margin-top: 16px;
+}

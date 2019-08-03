@@ -1,0 +1,13 @@
+@import '../../../../core/styles/main-colors.scss';
+
+.footer {
+    background-color: $mainColorRed;
+    flex: 0 0 auto;
+
+    &__content {
+        height: 63px;  
+        align-self: center;
+        width: 100%;
+        color: $mainColorWhite;
+    }
+}

@@ -1,0 +1,16 @@
+<div class="product">
+    <div class="content" *ngIf="Product">
+        <div class="image-wrapper">
+            <img [src]="IconUrl" alt="товар" class="image">
+        </div>
+        <div class="brief-wrapper">
+            <div class="name">
+                {{ Product.Name }}
+            </div>
+            <div class="price">
+                <strong>{{ Product.Price }}</strong>
+                <span>руб.</span>
+            </div>
+        </div>
+    </div>
+</div>

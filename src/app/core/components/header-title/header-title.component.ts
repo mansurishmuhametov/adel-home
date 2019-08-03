@@ -2,20 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-header-title',
-  templateUrl: './header-title.component.html',
-  styleUrls: ['./header-title.component.scss']
+    selector: 'app-header-title',
+    templateUrl: './header-title.component.html',
+    styleUrls: ['./header-title.component.scss']
 })
 export class HeaderTitleComponent implements OnInit {
 
-  constructor(
-    private readonly router: Router
-  ) { }
+    constructor(
+        private readonly router: Router
+    ) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  public goTo(state): void {
-    this.router.navigate([`/${state}`]);
-  }
+    public goTo(state): void {
+        this.router.navigate([`clients/${state}`]);
+    }
 }
