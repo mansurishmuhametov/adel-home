@@ -59,6 +59,6 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     }
 
     public goToDetail(id): void {
-        this.router.navigate(['/products', id]);
+        this.router.navigate(['./', id]);
     }
 }
