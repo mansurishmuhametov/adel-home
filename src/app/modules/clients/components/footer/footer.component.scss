@@ -9,5 +9,19 @@
         align-self: center;
         width: 100%;
         color: $mainColorWhite;
+        position: relative;
+    }
+}
+
+.pi {
+    position: absolute;
+    color: $mainColorRed;
+    bottom: 0;
+    right: 0;
+    cursor: default;
+
+    &:hover {        
+        color: $mainColorWhite;
+        cursor: default;
     }
 }
