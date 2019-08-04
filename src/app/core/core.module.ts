@@ -6,8 +6,6 @@ import { CoreRoutingModule } from './core-routing.module';
 import { SharedModule } from '@app-shared/shared.module';
 import { WebApiModule } from './modules/web-api/web-api.module';
 
-import { HeaderComponent } from '@app-core/components/header/header.component';
-import { HeaderTitleComponent } from './components/header-title/header-title.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { WebApiService } from './modules/web-api/services/web-api.service';
 
@@ -20,12 +18,9 @@ import { WebApiService } from './modules/web-api/services/web-api.service';
         WebApiModule
     ],
     declarations: [
-        HeaderComponent,
-        HeaderTitleComponent,
         FooterComponent
     ],
     exports: [
-        HeaderComponent,
         FooterComponent
     ],
     providers: [

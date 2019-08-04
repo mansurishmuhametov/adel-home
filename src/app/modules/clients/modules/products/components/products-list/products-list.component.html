@@ -1,4 +1,8 @@
 <div class="products-list">
+    <div class="loading"
+        *ngIf="isLoading">
+        Загрузка...
+    </div>
     <div *ngFor="let id of ids"
         class="product-wrapper"
         (click)="goToDetail(id)">
