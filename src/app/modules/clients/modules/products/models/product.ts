@@ -1,14 +1,16 @@
 import { Category } from './category';
+import { ProductType } from './product-type';
 
 export class Product {
     constructor(
         private readonly id: string,
+        private readonly image: string,
         private readonly name: string,
-        private readonly category: Category,
         private readonly price: number,
+        private readonly priority: number,
+        private readonly type: ProductType,
         private readonly description: string,
-        private readonly isInStock: boolean,
-        private readonly imageId: boolean
+        private readonly count: number
     ) { }
 
     get Id(): string {
@@ -19,8 +21,8 @@ export class Product {
         return this.name;
     }
 
-    get Category(): Category {
-        return this.category;
+    get Type(): ProductType {
+        return this.type;
     }
 
     get Price(): number {
@@ -31,11 +33,15 @@ export class Product {
         return this.description;
     }
 
-    get IsInStock(): boolean {
-        return this.isInStock;
+    get Image(): string {
+        return this.image;
     }
 
-    get ImageId(): boolean {
-        return this.imageId;
+    get Priority(): number {
+        return this.priority;
+    }
+
+    get Count(): number {
+        return this.count;
     }
 }

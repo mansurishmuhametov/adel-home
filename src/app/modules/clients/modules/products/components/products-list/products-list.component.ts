@@ -59,6 +59,6 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     }
 
     public goToDetail(id): void {
-        this.router.navigate(['../../', id], { relativeTo: this.activatedRoute });
+        // this.router.navigate(['../../', id], { relativeTo: this.activatedRoute });
     }
 }

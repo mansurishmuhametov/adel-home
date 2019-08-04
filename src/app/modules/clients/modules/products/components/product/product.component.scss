@@ -3,7 +3,6 @@
 .product {
     padding: 8px;
     height: 100%;
-    cursor: pointer;
 }
 
 .content {
@@ -41,4 +40,8 @@
     position: absolute;
     right: 8px;
     bottom: 8px;
+}
+
+.measure {
+    margin-left: 5px;
 }

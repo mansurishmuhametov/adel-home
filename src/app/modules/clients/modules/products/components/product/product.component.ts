@@ -43,7 +43,7 @@ export class ProductComponent implements OnInit, OnDestroy {
             )
             .subscribe(product => {
                 this.product = product;
-                this.iconUrl = `./assets/products/images/${this.product.Category}/${this.product.ImageId}.jpg`;
+                this.iconUrl = `data:image/jpg;base64,${ this.product.Image }`;
             });
     }
 
