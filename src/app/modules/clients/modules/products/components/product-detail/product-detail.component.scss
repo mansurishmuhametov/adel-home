@@ -1,13 +1,58 @@
 @import './src/app/styles/colors.scss';
 
-.component {
+.product {
+    padding-top: 16px;
+    padding-bottom: 16px;
     height: 100%;
-    margin-top: 16px;
-    margin-bottom: 16px;
+    width: 100%;
+    display: flex;
 }
 
-.content {
-    width: 40%;
-    height: 200px;
-    border: solid 1px $mainColorGrey;
+.image-wrapper {
+    width: 50%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.image {
+    width: 100%;
+}
+
+.text-wrapper {
+    display: inline-block;
+    text-align: left;
+    margin-left: 20px;
+}
+
+.price {
+    display: inline-block;
+    font-size: 1.5em;
+}
+
+.inStock {
+    color: white;
+    border-radius: 3px;
+    background-color: $mainColorGreen;
+    padding: 2px 7px;
+    display: inline-block;
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+}
+
+.measure {
+    margin-left: 5px;
+}
+
+.name {
+    font-size: 1.5em;
+}
+
+.text-line {
+    margin-bottom: 5px;
+}
+
+.description {
+    margin-bottom: 30px;
 }

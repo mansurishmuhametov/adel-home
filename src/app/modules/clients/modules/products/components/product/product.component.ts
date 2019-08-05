@@ -23,13 +23,13 @@ export class ProductComponent implements OnInit, OnDestroy {
         return this.product;
     }
 
-    get IconUrl(): string {
-        return this.iconUrl;
+    get IconSrc(): string {
+        return this.iconSrc;
     }
 
     private id: string;
     private product: Product;
-    private iconUrl: string;
+    private iconSrc: string;
     private destroy$: Subject<boolean> = new Subject<boolean>();
 
     constructor(
@@ -43,7 +43,7 @@ export class ProductComponent implements OnInit, OnDestroy {
             )
             .subscribe(product => {
                 this.product = product;
-                this.iconUrl = `data:image/jpg;base64,${ this.product.Image }`;
+                this.iconSrc = `data:image/jpg;base64,${ this.product.Image }`;
             });
     }
 

@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import * as _ from 'lodash';
 
 import { Product } from '../models/product';
-import { Category } from '../models/category';
-import { map, find, delay } from 'rxjs/operators';
-import * as productsList from '../data/products.json';
 import { ProductFilter } from '../models/product-filter';
 import { WebApiService } from '@app-core/modules/web-api/services/web-api.service';
 import { Subject } from 'rxjs';
@@ -44,7 +42,7 @@ export class ProductsService {
     }
 
     private getAll(): Observable<Product[]> {
-        if(this.products && this.products.length) {
+        if (this.products && this.products.length) {
             return of(this.products);
         }
 

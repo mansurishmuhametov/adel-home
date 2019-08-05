@@ -1,37 +1,39 @@
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "downlevelIteration": true,
-    "importHelpers": true,
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "target": "es2015",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
-    "baseUrl": "src",
-    "paths": {
-      "@app*": [
-        "app*"
-      ],
-      "@app-core*": [
-        "app/core*"
-      ],
-      "@app-modules*": [
-        "app/modules*"
-      ],
-      "@app-shared*": [
-        "app/modules/shared*"
-      ]
-    },
-    "module": "esnext"
-  }
+    "compileOnSave": false,
+    "compilerOptions": {
+        "downlevelIteration": true,
+        "importHelpers": true,
+        "outDir": "./dist/out-tsc",
+        "sourceMap": true,
+        "declaration": false,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "target": "es2015",
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "lib": [
+            "es2017",
+            "dom"
+        ],
+        "baseUrl": "src",
+        "paths": {
+            "@app*": [
+                "app*"
+            ],
+            "@app-core*": [
+                "app/core*"
+            ],
+            "@app-modules*": [
+                "app/modules*"
+            ],
+            "@app-shared*": [
+                "app/modules/shared*"
+            ]
+        },
+        "module": "esnext"
+    }
 }

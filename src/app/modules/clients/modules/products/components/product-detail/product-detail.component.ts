@@ -17,9 +17,15 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     private id: string;
     private product: Product;
 
-    public get Id(): string {
-        return this.id;
+    public get Product(): Product {
+        return this.product;
     }
+
+    get IconSrc(): string {
+        return this.iconSrc;
+    }
+
+    private iconSrc: string;
 
     constructor(
         private readonly route: ActivatedRoute,
@@ -50,7 +56,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             )
             .subscribe(product => {
                 this.product = product;
-                console.log(this.product);
+                this.iconSrc = `data:image/jpg;base64,${ this.product.Image }`;
             });
     }
 

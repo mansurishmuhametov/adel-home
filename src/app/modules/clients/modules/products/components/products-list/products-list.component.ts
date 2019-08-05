@@ -14,8 +14,13 @@ import { Category } from '../../models/category';
     styleUrls: ['./products-list.component.scss']
 })
 export class ProductsListComponent implements OnInit, OnDestroy {
-    private category: string;
-    private destroy$: Subject<boolean> = new Subject<boolean>();
+    private category = '';
+    private destroy$ = new Subject<boolean>();
+    private isLoading = false;
+
+    get IsLoading(): boolean {
+        return this.isLoading;
+    }
 
     constructor(
         private readonly activatedRoute: ActivatedRoute,
@@ -44,12 +49,15 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     public refresh(): void {
         const filter: ProductFilter = new ProductFilter(Category[this.category]);
 
+        this.isLoading = true;
+
         this.productsService.getIds(filter)
             .pipe(
                 takeUntil(this.destroy$)
             )
             .subscribe(ids => {
                 this.ids = ids;
+                this.isLoading = false;
             });
     }
 
@@ -59,6 +67,6 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     }
 
     public goToDetail(id): void {
-        // this.router.navigate(['../../', id], { relativeTo: this.activatedRoute });
+        this.router.navigate(['../../', id], { relativeTo: this.activatedRoute });
     }
 }
