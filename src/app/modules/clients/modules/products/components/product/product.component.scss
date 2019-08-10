@@ -6,25 +6,34 @@
 }
 
 .content {
-    position: relative;
     height: 100%;
+    position: relative;
 }
 
 .image {
     height: 100%;
+    object-fit: cover;
 }
 
 .image-wrapper {
     height: 100%;
-    padding-bottom: 52px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    padding-bottom: 50px;
     text-align: center;
 }
 
-.brief-wrapper {
-    position: absolute;
-    bottom: 0;
+.image-wrapper-inner {
+    height: 100%;
     width: 100%;
+}
+
+.brief-wrapper {
     text-align: center;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
 }
 
 .price {
@@ -44,4 +53,10 @@
 
 .measure {
     margin-left: 5px;
+}
+
+.stub {
+    background-color: $mainColorGrey;
+    height: 100%;
+    width: 100%;
 }

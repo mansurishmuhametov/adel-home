@@ -4,7 +4,7 @@ import { ProductType } from './product-type';
 export class Product {
     constructor(
         private readonly id: string,
-        private readonly image: string,
+        private readonly imageId: string,
         private readonly name: string,
         private readonly price: number,
         private readonly priority: number,
@@ -33,8 +33,8 @@ export class Product {
         return this.description;
     }
 
-    get Image(): string {
-        return this.image;
+    get ImageId(): string {
+        return this.imageId;
     }
 
     get Priority(): number {

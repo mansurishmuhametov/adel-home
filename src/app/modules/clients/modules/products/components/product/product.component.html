@@ -1,7 +1,15 @@
 <div class="product">
     <div class="content" *ngIf="Product">
         <div class="image-wrapper">
-            <img [src]="IconSrc" alt="товар" class="image">
+            <div class="image-wrapper-inner"
+                *ngIf="Image">
+                <img [src]="Image"
+                    alt="товар"
+                    class="image"
+                    *ngIf="Image">
+            </div>            
+            <div class="stub" *ngIf="!Image">
+            </div>
         </div>
         <div class="brief-wrapper">
             <div class="name">

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
+import { map, delay } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import * as _ from 'lodash';
 
@@ -15,7 +14,6 @@ export class ProductsService {
     private products: Product[] = null;
 
     constructor(
-        private http: HttpClient,
         private webApiService: WebApiService
     ) { }
 
@@ -41,6 +39,18 @@ export class ProductsService {
             );
     }
 
+    public getImage(id): Observable<any> {
+        return this.webApiService.getById('/images', id)
+            .pipe(
+                map((image) => {
+                    if (image) {
+                        return `data:image/jpg;base64,${image.content}`;
+                    } else {
+                        return null;
+                    }
+                }));
+    }
+
     private getAll(): Observable<Product[]> {
         if (this.products && this.products.length) {
             return of(this.products);
@@ -49,13 +59,14 @@ export class ProductsService {
         const subject: Subject<any[]> = new Subject();
 
         this.webApiService.get('/products')
+            .pipe()
             .subscribe(productsJson => {
                 const products: Product[] = [];
 
                 _.forEach(productsJson, item => {
                     const product = new Product(
                         item.id,
-                        item.image,
+                        item.imageId,
                         item.name,
                         item.price,
                         item.priority,

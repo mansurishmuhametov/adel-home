@@ -49,13 +49,17 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     public refresh(): void {
         const filter: ProductFilter = new ProductFilter(Category[this.category]);
 
-        this.isLoading = true;
+        const timer: any = setTimeout(() => {
+            this.isLoading = true;
+        }, 1000);
 
         this.productsService.getIds(filter)
             .pipe(
                 takeUntil(this.destroy$)
             )
             .subscribe(ids => {
+                clearTimeout(timer);
+
                 this.ids = ids;
                 this.isLoading = false;
             });

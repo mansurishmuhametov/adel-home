@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, NgZone } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
 import { ProductsService } from '../../services/products.service';
@@ -23,17 +23,23 @@ export class ProductComponent implements OnInit, OnDestroy {
         return this.product;
     }
 
-    get IconSrc(): string {
-        return this.iconSrc;
+    set Image(value: string) {
+        this.image = value;
+    }
+
+    get Image(): string {
+        return this.image;
     }
 
     private id: string;
     private product: Product;
     private iconSrc: string;
+    private image: string;
     private destroy$: Subject<boolean> = new Subject<boolean>();
 
     constructor(
-        private readonly productsService: ProductsService
+        private readonly productsService: ProductsService,
+        private zone: NgZone
     ) { }
 
     public ngOnInit(): void {
@@ -43,7 +49,12 @@ export class ProductComponent implements OnInit, OnDestroy {
             )
             .subscribe(product => {
                 this.product = product;
-                this.iconSrc = `data:image/jpg;base64,${ this.product.Image }`;
+                this.productsService.getImage(this.product.ImageId)
+                    .subscribe(image => {
+                        this.zone.run(() => {
+                            this.image = image;
+                        });
+                    });
             });
     }
 
