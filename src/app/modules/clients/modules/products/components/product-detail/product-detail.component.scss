@@ -5,14 +5,28 @@
     padding-bottom: 16px;
     height: 100%;
     width: 100%;
-    display: flex;
+}
+
+.content {
+    height: 100%;
+    position: relative;
+}
+
+.image {
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-wrapper-inner {
+    height: 100%;
 }
 
 .image-wrapper {
-    width: 50%;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
+    width: 30%;
+    top: 0;
+    padding-bottom: 50px;
+    text-align: center;
+    display: inline-block;
 }
 
 .image {
@@ -55,4 +69,10 @@
 
 .description {
     margin-bottom: 30px;
+}
+
+.stub {
+    background-color: $mainColorGrey;
+    height: 100%;
+    width: 100%;
 }

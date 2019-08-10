@@ -12,28 +12,18 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class ProductComponent implements OnInit, OnDestroy {
     @Input()
-    set Id(value: string) {
-        this.id = value;
+    set Product(value: Product) {
+        this.product = value;
     }
-    get Id(): string {
-        return this.id;
-    }
-
     get Product(): Product {
         return this.product;
-    }
-
-    set Image(value: string) {
-        this.image = value;
     }
 
     get Image(): string {
         return this.image;
     }
 
-    private id: string;
     private product: Product;
-    private iconSrc: string;
     private image: string;
     private destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -43,18 +33,19 @@ export class ProductComponent implements OnInit, OnDestroy {
     ) { }
 
     public ngOnInit(): void {
-        this.productsService.get(this.id)
+        this.productsService.getImage(this.product.ImageId)
             .pipe(
                 takeUntil(this.destroy$)
             )
-            .subscribe(product => {
-                this.product = product;
-                this.productsService.getImage(this.product.ImageId)
-                    .subscribe(image => {
-                        this.zone.run(() => {
-                            this.image = image;
-                        });
-                    });
+            .subscribe(image => {
+                /**
+                 * todo: тех долг
+                 * каким-то образом из-за сервиса (скорее всего из-за firebase)
+                 * теряется контекст
+                 */
+                this.zone.run(() => {
+                    this.image = image;
+                });
             });
     }
 

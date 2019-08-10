@@ -3,11 +3,11 @@
         *ngIf="IsLoading">
         Загрузка...
     </div>
-    <div *ngFor="let id of ids"
+    <div *ngFor="let product of Products"
         class="product-wrapper"
-        (click)="goToDetail(id)">
+        (click)="goToDetail(product.Id)">
         <div class="product-content">
-            <app-product [Id]="id"></app-product>
+            <app-product [Product]="product"></app-product>
         </div>
     </div>
 </div>

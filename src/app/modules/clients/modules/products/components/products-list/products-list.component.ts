@@ -7,6 +7,7 @@ import { Subject } from 'rxjs/Subject';
 import { ProductsService } from '../../services/products.service';
 import { ProductFilter } from '../../models/product-filter';
 import { Category } from '../../models/category';
+import { Product } from '../../models/product';
 
 @Component({
     selector: 'app-products-list',
@@ -22,13 +23,17 @@ export class ProductsListComponent implements OnInit, OnDestroy {
         return this.isLoading;
     }
 
+    get Products(): Product[] {
+        return this.products;
+    }
+
     constructor(
         private readonly activatedRoute: ActivatedRoute,
         private readonly router: Router,
         private readonly productsService: ProductsService
     ) { }
 
-    public ids: string[];
+    private products: Product[];
 
     public ngOnInit(): void {
         this.activatedRoute.paramMap
@@ -53,14 +58,14 @@ export class ProductsListComponent implements OnInit, OnDestroy {
             this.isLoading = true;
         }, 1000);
 
-        this.productsService.getIds(filter)
+        this.productsService.getAll(filter)
             .pipe(
                 takeUntil(this.destroy$)
             )
-            .subscribe(ids => {
+            .subscribe(products => {
                 clearTimeout(timer);
 
-                this.ids = ids;
+                this.products = products;
                 this.isLoading = false;
             });
     }

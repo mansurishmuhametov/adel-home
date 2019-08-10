@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { takeUntil, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
@@ -21,16 +21,17 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         return this.product;
     }
 
-    get IconSrc(): string {
-        return this.iconSrc;
+    get Image(): string {
+        return this.image;
     }
 
-    private iconSrc: string;
+    private image: string;
 
     constructor(
         private readonly route: ActivatedRoute,
         private readonly router: Router,
-        private readonly productsService: ProductsService
+        private readonly productsService: ProductsService,
+        private readonly zone: NgZone
     ) { }
 
     public ngOnInit(): void {
@@ -56,7 +57,25 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             )
             .subscribe(product => {
                 this.product = product;
-                this.iconSrc = `data:image/jpg;base64,${ this.product.ImageId }`;
+
+                this.initImage(this.product.ImageId);
+            });
+    }
+
+    public initImage(imageId: string): void {
+        this.productsService.getImage(imageId)
+            .pipe(
+                takeUntil(this.destroy$)
+            )
+            .subscribe(image => {
+                /**
+                 * todo: тех долг
+                 * каким-то образом из-за сервиса (скорее всего из-за firebase)
+                 * теряется контекст
+                 */
+                this.zone.run(() => {
+                    this.image = image;
+                });
             });
     }
 

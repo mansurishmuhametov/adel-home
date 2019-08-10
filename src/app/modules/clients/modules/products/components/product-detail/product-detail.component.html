@@ -1,25 +1,37 @@
-<div class="product" *ngIf="Product">
-    <div class="image-wrapper">
-        <img [src]="IconSrc" alt="товар" class="image">
-    </div>
-    <div class="text-wrapper">
-        <div class="description">
-            <div class="name text-line">
-                {{ Product.Name }}
+<div class="product">
+    <div class="content">
+        <div class="image-wrapper">
+            <div class="image-wrapper-inner"
+                *ngIf="Image">
+                <img [src]="Image"
+                    alt="товар"
+                    class="image"
+                    *ngIf="Image">
             </div>
-            <div class="price text-line">
-                <strong>
-                    <span>{{ Product.Price }}</span>
-                    <span class="measure">руб.</span>
-                </strong>
+            <div class="stub"
+                *ngIf="!Image">
             </div>
         </div>
-        <div class="contacts">
-            <div class="text-line">
-                <span>Для совершения заказа просьба позвонить</span>
+        <div class="text-wrapper"
+            *ngIf="Product">
+            <div class="description">
+                <div class="name text-line">
+                    {{ Product.Name }}
+                </div>
+                <div class="price text-line">
+                    <strong>
+                        <span>{{ Product.Price }}</span>
+                        <span class="measure">руб.</span>
+                    </strong>
+                </div>
             </div>
-            <div class="text-line">
-                <span>+7(917)73-77-150</span>
+            <div class="contacts">
+                <div class="text-line">
+                    <span>Для заказа необходимо позвонить</span>
+                </div>
+                <div class="text-line">
+                    <span>+7(917)73-77-150</span>
+                </div>
             </div>
         </div>
     </div>

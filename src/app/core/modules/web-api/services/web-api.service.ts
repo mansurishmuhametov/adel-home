@@ -23,20 +23,30 @@ export class WebApiService {
         const repository = this.firebase.database.ref(url);
         const subject: Subject<any> = new Subject<any>();
 
-        repository
-            .orderByChild('id')
-            .equalTo(id)
-            .on('value', (entity) => {
-                let result: any;
+        /**
+         * todo: тех долг
+         * setTimeout это костыль
+         * сложность в том, что при повторном обращение с теми же параметрами
+         * данные возвращаются синхронно и subject.next(result);
+         * отрабатывает раньше, чем return subject;
+         * setTimeout решает эту сложность
+         */
+        setTimeout(() => {
+            repository
+                .orderByChild('id')
+                .equalTo(id)
+                .on('value', (entity) => {
+                    let result: any;
 
-                if (!entity.val()) {
-                    result = null;
-                } else {
-                    result = _.head(Object.values(entity.val()));
-                }
+                    if (!entity.val()) {
+                        result = null;
+                    } else {
+                        result = _.head(Object.values(entity.val()));
+                    }
 
-                subject.next(result);
-            });
+                    subject.next(result);
+                });
+        }, 0);
 
         return subject;
     }

@@ -1,5 +1,6 @@
 <div class="product">
-    <div class="content" *ngIf="Product">
+    <div class="content"
+        *ngIf="Product">
         <div class="image-wrapper">
             <div class="image-wrapper-inner"
                 *ngIf="Image">
@@ -7,8 +8,9 @@
                     alt="товар"
                     class="image"
                     *ngIf="Image">
-            </div>            
-            <div class="stub" *ngIf="!Image">
+            </div>
+            <div class="stub"
+                *ngIf="!Image">
             </div>
         </div>
         <div class="brief-wrapper">
