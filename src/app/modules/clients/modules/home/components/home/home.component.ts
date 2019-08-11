@@ -17,6 +17,6 @@ export class HomeComponent implements OnInit {
     }
 
     public goToShopping() {
-        this.router.navigate(['../../products'], { relativeTo: this.activatedRoute });
+        this.router.navigate(['../../products/category/clothes'], { relativeTo: this.activatedRoute });
     }
 }
