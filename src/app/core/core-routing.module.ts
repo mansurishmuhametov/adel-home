@@ -53,7 +53,8 @@ const routes: Routes = [
             {
                 enableTracing: false,
                 // preloadingStrategy: PreloadAllModules,
-                preloadingStrategy: PreloadingStrategyService
+                preloadingStrategy: PreloadingStrategyService,
+                useHash: true
             }
         )
     ],
