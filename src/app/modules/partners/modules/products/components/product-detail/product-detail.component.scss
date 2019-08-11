@@ -52,3 +52,40 @@
     margin-bottom: 40px;
     padding: 0;
 }
+
+.error {
+    color: $mainColorDanger;
+}
+
+.image-wrapper {
+    width: 100%;
+}
+
+.image {
+    max-width: 100%;
+}
+
+.save-button {
+    margin-left: 20px;
+}
+
+.buttons-wrapper {
+    position: relative;
+    text-align: right;
+}
+
+.group-buttons {
+    display: inline-block;
+}
+
+.no-content {
+    background-color: $mainColorGrey;
+    min-height: 200px;
+}
+
+.box__dragndrop,
+.box__uploading,
+.box__success,
+.box__error {
+  display: none;
+}
