@@ -1,0 +1,21 @@
+<div class="products-list">
+    <table class="table table-sm table-bordered table-hover">
+        <thead>
+            <tr>
+                <th scope="col">№</th>
+                <th scope="col">Название</th>
+                <th scope="col">Цена</th>
+                <th scope="col">Количество</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of Products; let i = index"
+                (click)="goToDetail(product.Id)">
+                <td>{{ i + 1 }}</td>
+                <td>{{ product.Name }}</td>
+                <td>{{ product.Price }}</td>
+                <td>{{ 1 }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

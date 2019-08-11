@@ -1,0 +1,18 @@
+@import './src/app/styles/colors.scss';
+
+.products-list {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.product-wrapper {
+    cursor: pointer;
+}
+
+.product-content {
+    height: 100%;
+}
+
+.loading {
+    text-align: center;
+}

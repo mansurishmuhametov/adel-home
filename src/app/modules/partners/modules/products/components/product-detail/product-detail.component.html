@@ -1,0 +1,122 @@
+<form [formGroup]="UpdateForm"
+    (ngSubmit)="onSubmit()"
+    novalidate>
+    <div class="product">
+        <div class="content">
+            <div class="page-title">                
+                <h4 *ngIf="Product.Id; else addTitle">
+                    Редактирование товара
+                </h4>
+                <ng-template #addTitle>
+                    <h4>
+                        Добавление товара
+                    </h4>
+                </ng-template>
+            </div>
+            <div class="product-row row">
+                <div class="col-md-4">
+                    Название:
+                </div>
+                <div class="col-md-4">
+                    <input class="form-control"
+                        (change)="nameChanged()"
+                        formControlName="name">
+                    <ng-container
+                        *ngTemplateOutlet="ErrorMessageTemplate; context: { control: UpdateForm.controls.name }">
+                    </ng-container>
+                </div>
+            </div>
+            <div class="product-row row">
+                <div class="col-md-4">
+                    Цена:
+                </div>
+                <div class="col-md-4">
+                    <input class="form-control"
+                        (change)="priceChanged()"
+                        formControlName="price">
+                    <ng-container
+                        *ngTemplateOutlet="ErrorMessageTemplate; context: { control: UpdateForm.controls.price }">
+                    </ng-container>
+                </div>
+            </div>
+            <div class="product-row row">
+                <div class="col-md-4">
+                    Приоритет показа:
+                </div>
+                <div class="col-md-4">
+                    <div class="priority-wrapper hi-green"
+                        *ngFor="let priority of Priorities"
+                        [ngClass]="{ 'priority-wrapper-active': UpdateForm.controls.priority.value === priority }"
+                        (click)="prioritySelected(priority)">
+                        <div class="priority-inner">
+                            <div class="priority">
+                                {{ priority }}
+                            </div>
+                        </div>
+                    </div>
+                    <ng-container
+                        *ngTemplateOutlet="ErrorMessageTemplate; context: { control: UpdateForm.controls.priority }">
+                    </ng-container>
+                </div>
+            </div>
+            <div class="product-row row">
+                <div class="col-md-4">
+                    Категория:
+                </div>
+                <div class="col-md-4">
+                    <ng-select
+                        [searchable]="true"
+                        [clearable]="true"
+                        [items]="ProductTypes"
+                        (change)="typeSelected()"
+                        bindLabel="Title"
+                        formControlName="type">
+                    </ng-select>
+                    <ng-container
+                        *ngTemplateOutlet="ErrorMessageTemplate; context: { control: UpdateForm.controls.type }">
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <button class="btn btn-default"
+                (click)="cancel()"
+                type="button">
+                Отмена
+            </button>
+            <button class="btn btn-primary"
+                type="submit"
+                [disabled]="!UpdateForm.valid">
+                <span *ngIf="Product.Id; else addButton">
+                    Сохранить
+                </span>
+                <ng-template #addButton>
+                    Добавить
+                </ng-template>
+            </button>
+        </div>
+    </div>
+</form>
+
+<ng-template #ErrorMessageTemplate let-control="control">
+    <span class="text-danger" *ngIf="control.invalid && control.touched">
+        <div *ngIf="control.errors?.required">
+            Это обязательное поле
+        </div>
+        <div *ngIf="control.errors?.minlength">
+            Минимальное количество сиволов: {{ control.errors.minlength.requiredLength }}
+        </div>
+        <div *ngIf="control.errors?.maxlength">
+            Максимальное количество сиволов: {{ control.errors.maxlength.requiredLength }}
+        </div>
+        <div *ngIf="control.errors?.pattern">
+            Неккоректное значение
+        </div>
+        <div *ngIf="control.errors?.min">
+            Минимальное значение: {{ control.errors.min.min }}
+        </div>
+        <div *ngIf="control.errors?.max">
+            Максимальное значение: {{ control.errors.max.max }}
+        </div>
+    </span>
+</ng-template>
