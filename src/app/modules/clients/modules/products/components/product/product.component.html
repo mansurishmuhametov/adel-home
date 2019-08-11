@@ -3,15 +3,14 @@
         *ngIf="Product">
         <div class="image-wrapper">
             <div class="image-wrapper-inner"
-                *ngIf="Image">
+                *ngIf="Image; else noImage">
                 <img [src]="Image"
-                    alt="товар"
                     class="image"
                     *ngIf="Image">
             </div>
-            <div class="stub"
-                *ngIf="!Image">
-            </div>
+            <ng-template #noImage>
+                <div class="noImage"></div>
+            </ng-template>
         </div>
         <div class="brief-wrapper">
             <div class="name">
