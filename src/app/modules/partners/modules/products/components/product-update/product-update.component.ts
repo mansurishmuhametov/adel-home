@@ -11,11 +11,11 @@ import { Product } from '../../models/product';
 import { ProductType } from '../../models/product-type';
 
 @Component({
-    selector: 'app-product-detail',
-    templateUrl: './product-detail.component.html',
-    styleUrls: ['./product-detail.component.scss']
+    selector: 'app-product-update',
+    templateUrl: './product-update.component.html',
+    styleUrls: ['./product-update.component.scss']
 })
-export class ProductDetailComponent implements OnInit, OnDestroy {
+export class ProductUpdateComponent implements OnInit, OnDestroy {
     private destroy$: Subject<boolean> = new Subject<boolean>();
     private id: string;
     private product: Product;

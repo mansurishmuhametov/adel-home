@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ProductsListComponent } from './components/products-list/products-list.component';
-import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { ProductUpdateComponent } from './components/product-update/product-update.component';
 
 const routes: Routes = [
     {
@@ -12,7 +12,7 @@ const routes: Routes = [
     },
     {
         path: ':id',
-        component: ProductDetailComponent
+        component: ProductUpdateComponent
     },
     {
         path: 'category/:category',

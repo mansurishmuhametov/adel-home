@@ -9,7 +9,7 @@ import { ProductsRoutingModule } from './products-routing.module';
 import { ProductsService } from './services/products.service';
 
 import { ProductsListComponent } from './components/products-list/products-list.component';
-import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { ProductUpdateComponent } from './components/product-update/product-update.component';
 
 @NgModule({
     imports: [
@@ -22,7 +22,7 @@ import { ProductDetailComponent } from './components/product-detail/product-deta
     ],
     declarations: [
         ProductsListComponent,
-        ProductDetailComponent
+        ProductUpdateComponent
     ],
     providers: [
         ProductsService,
