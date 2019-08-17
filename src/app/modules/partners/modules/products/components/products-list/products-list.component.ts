@@ -60,6 +60,10 @@ export class ProductsListComponent implements OnInit, OnDestroy {
             });
     }
 
+    public goToUpdate(): void {
+        this.router.navigate(['./update'], { relativeTo: this.activatedRoute });
+    }
+
     public refresh(): void {
         const filter: ProductFilter = new ProductFilter(Category[this.category]);
 
@@ -85,6 +89,20 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     }
 
     public goToDetail(id): void {
-        this.router.navigate(['./', id], { relativeTo: this.activatedRoute });
+        this.router.navigate(['./update', id], { relativeTo: this.activatedRoute });
+    }
+
+    public delete(id): void {
+        this.productsService.delete(id)
+            .pipe(
+                takeUntil(this.destroy$)
+            )
+            .subscribe((result: any) => {
+                this.refresh();
+            },
+            (error: string) => {
+                // ошибка
+                debugger;
+            });
     }
 }

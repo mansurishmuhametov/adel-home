@@ -10,6 +10,7 @@ import { ProductsService } from './services/products.service';
 
 import { ProductsListComponent } from './components/products-list/products-list.component';
 import { ProductUpdateComponent } from './components/product-update/product-update.component';
+import { ClickStopPropagation } from '@app-shared/components/click-stop-propagation/click-stop-propagation';
 
 @NgModule({
     imports: [
@@ -22,7 +23,8 @@ import { ProductUpdateComponent } from './components/product-update/product-upda
     ],
     declarations: [
         ProductsListComponent,
-        ProductUpdateComponent
+        ProductUpdateComponent,
+        ClickStopPropagation
     ],
     providers: [
         ProductsService,

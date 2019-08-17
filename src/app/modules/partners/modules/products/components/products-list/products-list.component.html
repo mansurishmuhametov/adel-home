@@ -1,4 +1,10 @@
 <div class="products-list">
+    <div class="filter">
+        <div class="btn btn-primary btn-sm products-list-add"
+            (click)="goToUpdate()">
+            Добавить
+        </div>
+    </div>
     <table class="table table-sm table-bordered table-hover">
         <thead>
             <tr>
@@ -6,15 +12,22 @@
                 <th scope="col">Название</th>
                 <th scope="col">Цена</th>
                 <th scope="col">Количество</th>
+                <th scope="col">Количество</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let product of Products; let i = index"
-                (click)="goToDetail(product.Id)">
+                (click)="goToDetail(product.Id)"
+                class="products-list-item">
                 <td>{{ i + 1 }}</td>
                 <td>{{ product.Name }}</td>
                 <td>{{ product.Price }}</td>
                 <td>{{ 1 }}</td>
+                <td class="text-danger delete-icon hi-green"
+                    (click)="delete(product.Id)"
+                    click-stop-propagation>
+                    x
+                </td>
             </tr>
         </tbody>
     </table>

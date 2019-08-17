@@ -4,7 +4,7 @@
     <div class="product">
         <div class="content">
             <div class="page-title">                
-                <h4 *ngIf="Product.Id; else addTitle">
+                <h4 *ngIf="Id; else addTitle">
                     Редактирование товара
                 </h4>
                 <ng-template #addTitle>
@@ -14,10 +14,10 @@
                 </ng-template>
             </div>
             <div class="product-row row">
-                <div class="col-md-4">
-                    Название:
+                <div class="col-md-3">
+                    Название <span class="text-danger">*</span>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <input class="form-control"
                         (change)="nameChanged()"
                         formControlName="name">
@@ -27,10 +27,10 @@
                 </div>
             </div>
             <div class="product-row row">
-                <div class="col-md-4">
-                    Цена:
+                <div class="col-md-3">
+                    Цена <span class="text-danger">*</span>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <input class="form-control"
                         (change)="priceChanged()"
                         formControlName="price">
@@ -40,11 +40,11 @@
                 </div>
             </div>
             <div class="product-row row">
-                <div class="col-md-4">
-                    Приоритет показа:
+                <div class="col-md-3">
+                    Приоритет показа <span class="text-danger">*</span>
                 </div>
-                <div class="col-md-4">
-                    <div class="priority-wrapper hi-green"
+                <div class="col-md-5">
+                    <div class="priority-wrapper"
                         *ngFor="let priority of Priorities"
                         [ngClass]="{ 'priority-wrapper-active': UpdateForm.controls.priority.value === priority }"
                         (click)="prioritySelected(priority)">
@@ -60,10 +60,10 @@
                 </div>
             </div>
             <div class="product-row row">
-                <div class="col-md-4">
-                    Категория:
+                <div class="col-md-3">
+                    Категория <span class="text-danger">*</span>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <ng-select
                         [searchable]="true"
                         [clearable]="true"
@@ -78,36 +78,51 @@
                 </div>
             </div>
             <div class="product-row row">
-                <div class="col-md-4">
-                    Картинка:
+                <div class="col-md-3">
+                    Картинка <span class="text-danger">*</span>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <input
                         #file
                         type="file"
                         accept='image/*'
                         (change)="preview(file.files)"/>                        
                     <span *ngIf="message"
-                        class="error">
+                        class="text-danger">
                         {{ message }}
                     </span>
                 </div>
             </div>
             <div class="product-row row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <div class="image-wrapper">
-                        <img [src]="imgURL"
-                            *ngIf="imgURL; else noContent"
+                        <img [src]="UpdateForm.controls.image.value"
+                            *ngIf="UpdateForm.controls.image.value; else noContent"
                             class="image">
                     </div>
                 </div>
             </div>
             <div class="product-row row">
-                <div class="col-md-4">
+                <div class="col-md-3">
+                    Описание:
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5">
+                    <textarea
+                        class="form-control"
+                        type="text"
+                        rows="5"
+                        (change)="descriptionChanged()"
+                        maxlength="1024"
+                        formControlName="description">
+                    </textarea>
+                </div>
+            </div>
+            <div class="product-row row">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-5">
                     <div class="buttons-wrapper">
                         <div class="group-buttons">
                             <button class="btn btn-default"
@@ -118,7 +133,7 @@
                             <button class="btn btn-primary save-button"
                                 type="submit"
                                 [disabled]="!UpdateForm.valid">
-                                <span *ngIf="Product.Id; else addButton">
+                                <span *ngIf="Id; else addButton">
                                     Сохранить
                                 </span>
                                 <ng-template #addButton>

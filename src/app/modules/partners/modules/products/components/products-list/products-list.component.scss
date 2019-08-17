@@ -3,6 +3,14 @@
 .products-list {
     margin-top: 16px;
     margin-bottom: 16px;
+
+    &-item {
+        cursor: pointer;
+    }
+
+    &-add {
+        cursor: pointer;
+    }
 }
 
 .product-wrapper {
@@ -15,4 +23,16 @@
 
 .loading {
     text-align: center;
+}
+
+.filter {
+    float: right;
+    margin-bottom: 10px;
+}
+
+.delete-icon {
+    text-align: right;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
 }

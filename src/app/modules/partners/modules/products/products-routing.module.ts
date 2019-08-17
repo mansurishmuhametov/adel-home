@@ -11,7 +11,11 @@ const routes: Routes = [
         children: []
     },
     {
-        path: ':id',
+        path: 'update/:id',
+        component: ProductUpdateComponent
+    },
+    {
+        path: 'update',
         component: ProductUpdateComponent
     },
     {

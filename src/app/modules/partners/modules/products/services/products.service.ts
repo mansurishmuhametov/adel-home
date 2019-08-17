@@ -6,6 +6,8 @@ import * as _ from 'lodash';
 import { Product } from '../models/product';
 import { ProductFilter } from '../models/product-filter';
 import { WebApiService } from '@app-core/modules/web-api/services/web-api.service';
+import { Image } from '../models/image';
+import { of } from 'rxjs';
 
 @Injectable()
 export class ProductsService {
@@ -36,12 +38,32 @@ export class ProductsService {
             .pipe(
                 map((image) => {
                     if (image) {
-                        return `data:image/jpg;base64,${image.content}`;
+                        return image.content;
                     } else {
                         return null;
                     }
                 })
             );
+    }
+
+    public updateImage(image: Image): Observable<string> {
+        if (!image.Id) {
+            return this.webApiService.put('/images', image);
+        } else {
+            return of('empty');
+        }
+    }
+
+    public updateProduct(product: Product): Observable<string> {
+        if (product.Id) {
+            return this.webApiService.update('/products', product);
+        } else {
+            return this.webApiService.put('/products', product);
+        }
+    }
+
+    public delete(productId: string): Observable<any> {
+        return this.webApiService.delete('/products', productId);
     }
 
     public getAll(filter: ProductFilter): Observable<Product[]> {

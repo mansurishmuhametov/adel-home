@@ -8,7 +8,7 @@ export class Product {
         private readonly name: string,
         private readonly price: number,
         private readonly priority: number,
-        private readonly type: ProductType,
+        private readonly type: string,
         private readonly description: string,
         private readonly count: number
     ) { }
@@ -21,7 +21,7 @@ export class Product {
         return this.name;
     }
 
-    get Type(): ProductType {
+    get Type(): string {
         return this.type;
     }
 
