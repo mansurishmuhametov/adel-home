@@ -8,9 +8,6 @@
                     class="image"
                     *ngIf="Image">
             </div>
-            <ng-template #noImage>
-                <div class="noImage"></div>
-            </ng-template>
         </div>
         <div class="brief-wrapper">
             <div class="name">
@@ -23,3 +20,9 @@
         </div>
     </div>
 </div>
+
+<ng-template #noImage>
+    <div *ngIf="IsLongRequest"
+        class="noImage">
+    </div>
+</ng-template>

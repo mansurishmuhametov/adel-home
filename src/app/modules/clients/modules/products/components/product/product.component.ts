@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, OnDestroy, NgZone } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+import { takeUntil, first, delay } from 'rxjs/operators';
+import { timer } from 'rxjs';
 
 import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/product';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-product',
@@ -23,8 +24,13 @@ export class ProductComponent implements OnInit, OnDestroy {
         return this.image;
     }
 
+    get IsLongRequest(): boolean {
+        return this.isLongRequest;
+    }
+
     private product: Product;
     private image: string;
+    private isLongRequest: boolean;
     private destroy$: Subject<boolean> = new Subject<boolean>();
 
     constructor(
@@ -33,6 +39,15 @@ export class ProductComponent implements OnInit, OnDestroy {
     ) { }
 
     public ngOnInit(): void {
+        timer(2000)
+            .pipe(
+                first(),
+                takeUntil(this.destroy$)
+            )
+            .subscribe(() => {
+                this.isLongRequest = true;
+            });
+
         this.productsService.getImage(this.product.ImageId)
             .pipe(
                 takeUntil(this.destroy$)

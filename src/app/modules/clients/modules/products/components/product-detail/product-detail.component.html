@@ -2,14 +2,11 @@
     <div class="content">
         <div class="image-wrapper">
             <div class="image-content"
-                *ngIf="Image; else noImage">
+                *ngIf="Image; else noContent">
                 <img [src]="Image"
                     class="image"
                     *ngIf="Image">
             </div>
-            <ng-template #noImage>
-                <div class="no-content"></div>
-            </ng-template>
         </div>
         <div class="text-wrapper">
             <div class="text-content"
@@ -34,9 +31,13 @@
                     </div>
                 </div>
             </div>
-            <ng-template #noContent>
-                <div class="no-content"></div>
-            </ng-template>
         </div>
     </div>
 </div>
+
+<!-- Если долгий запрос, то закрашиваем все в серый цвет -->
+<ng-template #noContent>
+    <div class="no-content"
+        *ngIf="IsLongRequest">
+    </div>
+</ng-template>

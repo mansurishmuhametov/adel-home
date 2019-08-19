@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
-import { takeUntil, switchMap } from 'rxjs/operators';
+import { takeUntil, switchMap, first, delay } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Subject } from 'rxjs/Subject';
+import { timer } from 'rxjs';
 
 import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/product';
@@ -25,7 +26,12 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         return this.image;
     }
 
+    get IsLongRequest(): boolean {
+        return this.isLongRequest;
+    }
+
     private image: string;
+    private isLongRequest: boolean;
 
     constructor(
         private readonly route: ActivatedRoute,
@@ -35,6 +41,15 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     ) { }
 
     public ngOnInit(): void {
+        timer(2000)
+            .pipe(
+                first(),
+                takeUntil(this.destroy$)
+            )
+            .subscribe(() => {
+                this.isLongRequest = true;
+            });
+
         this.route.paramMap
             .pipe(
                 switchMap((params: ParamMap) => {
