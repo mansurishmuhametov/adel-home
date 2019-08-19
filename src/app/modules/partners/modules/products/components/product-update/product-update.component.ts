@@ -110,14 +110,15 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
                 takeUntil(this.destroy$)
             )
             .subscribe(product => {
+                // final
+                debugger;
+                
                 this.product = product;
-
-                this.initImage(this.product.ImageId);
                 this.mapToForm(this.product);
             });
     }
 
-    public initImage(imageId: string): void {
+    public setImage(imageId: string): void {
         this.productsService.getImage(imageId)
             .pipe(
                 takeUntil(this.destroy$)
@@ -197,6 +198,9 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
         this.productsService.updateImage(image)
             .pipe(
                 mergeMap((imageId: string) => {
+                    // 07
+                    debugger;
+
                     const product: Product = this.getProductFromForm(this.id, imageId);
 
                     return this.productsService.updateProduct(product);
@@ -222,13 +226,20 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
         this.updateForm.controls.price.setValue(product.Price);
         this.updateForm.controls.priority.setValue(product.Priority);
         this.updateForm.controls.description.setValue(product.Description);
+        this.updateForm.controls.description.setValue(product.Material);
 
         const type: ProductType = _.find(this.productTypes, { Value: product.Type })
         this.updateForm.controls.type.setValue(type);
+        
+        // 01
+        debugger;
+
+        this.setImage(this.product.ImageId);
     }
 
     private getProductFromForm(productId: string, imageId: string): Product {
         const controls = this.updateForm.controls;
+
         return new Product(
             productId,
             imageId,
@@ -237,7 +248,8 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
             controls.priority.value,
             controls.type.value.Value,
             controls.description.value,
-            controls.count.value
+            controls.count.value,
+            controls.material.value
         );
     }
 
@@ -262,6 +274,10 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
             ]),
             image: new FormControl(null, [
                 Validators.required
+            ]),
+            material: new FormControl('', [
+                Validators.minLength(3),
+                Validators.maxLength(50)
             ]),
             description: new FormControl('', []),
             count: new FormControl(0, [])

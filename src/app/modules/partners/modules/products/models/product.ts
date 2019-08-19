@@ -10,7 +10,9 @@ export class Product {
         private readonly priority: number,
         private readonly type: string,
         private readonly description: string,
-        private readonly count: number
+        private readonly count: number,
+        private readonly material: string
+
     ) { }
 
     get Id(): string {
@@ -43,5 +45,9 @@ export class Product {
 
     get Count(): number {
         return this.count;
+    }
+
+    get Material(): string {
+        return this.material;
     }
 }

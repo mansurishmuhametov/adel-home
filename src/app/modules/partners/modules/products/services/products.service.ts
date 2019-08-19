@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { map, delay } from 'rxjs/operators';
+import { map, delay, mergeMap, combineLatest } from 'rxjs/operators';
 import * as _ from 'lodash';
 
 import { Product } from '../models/product';
@@ -27,7 +27,8 @@ export class ProductsService {
                         item.priority,
                         item.type,
                         item.description,
-                        item.count
+                        item.count,
+                        item.material
                     );;
                 })
             );
@@ -55,6 +56,9 @@ export class ProductsService {
     }
 
     public updateProduct(product: Product): Observable<string> {
+        // 17
+        debugger;
+
         if (product.Id) {
             return this.webApiService.update('/products', product);
         } else {
@@ -63,7 +67,15 @@ export class ProductsService {
     }
 
     public delete(productId: string): Observable<any> {
-        return this.webApiService.delete('/products', productId);
+        return this.get(productId)
+            .pipe(
+                mergeMap((product: Product) => {
+                    const imgSub = this.webApiService.delete('/images', product.ImageId);
+                    const productSub = this.webApiService.delete('/products', product.Id);
+
+                    return combineLatest(imgSub, productSub);
+                })
+            );
     }
 
     public getAll(filter: ProductFilter): Observable<Product[]> {
@@ -81,13 +93,14 @@ export class ProductsService {
                             item.priority,
                             item.type,
                             item.description,
-                            item.count
+                            item.count,
+                            item.material
                         );
 
                         products.push(product);
                     });
 
-                    return _.orderBy(products, ['priority', 'name'], ['asc', 'asc']);
+                    return _.orderBy(products, ['name'], ['asc']);
                 })
             );
     }

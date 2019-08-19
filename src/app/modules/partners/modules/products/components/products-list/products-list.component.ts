@@ -93,6 +93,12 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     }
 
     public delete(id): void {
+        const isConfirm = confirm('Удалить ?');
+
+        if (!isConfirm) {
+            return;
+        }
+
         this.productsService.delete(id)
             .pipe(
                 takeUntil(this.destroy$)
