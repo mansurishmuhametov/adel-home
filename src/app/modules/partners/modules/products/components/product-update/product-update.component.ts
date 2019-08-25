@@ -23,7 +23,6 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
     private destroy$: Subject<boolean> = new Subject<boolean>();
     private id: string;
     private product: Product;
-    private isChangesSaved: boolean = true;
     private isProcesing: boolean = false;
     private name: string;
     private priorities = [1, 2, 3, 4, 5];
@@ -147,18 +146,6 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
         this.destroy$.complete();
     }
 
-    public nameChanged(): void {
-        this.isChangesSaved = false;
-    }
-
-    public priceChanged(): void {
-        this.isChangesSaved = false;
-    }
-
-    public descriptionChanged(): void {
-        this.isChangesSaved = false;
-    }
-
     public onSubmit(): void {
         this.update();
     }
@@ -239,6 +226,7 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
     private mapToForm(product: Product): void {
         this.updateForm.controls.name.setValue(product.Name);
         this.updateForm.controls.price.setValue(product.Price);
+        this.updateForm.controls.article.setValue(product.Article);
         this.updateForm.controls.priority.setValue(product.Priority);
         this.updateForm.controls.description.setValue(product.Description);
         this.updateForm.controls.consist.setValue(product.Consist);
@@ -256,6 +244,7 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
             imageId,
             controls.name.value,
             controls.price.value,
+            controls.article.value,
             controls.priority.value,
             controls.type.value.Value,
             controls.description.value,
@@ -276,6 +265,12 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
                 Validators.pattern("^[0-9]*$"),
                 Validators.min(1),
                 Validators.max(90000)
+            ]),
+            article: new FormControl(null, [
+                Validators.required,
+                Validators.pattern("^[0-9]*$"),
+                Validators.minLength(4),
+                Validators.maxLength(20)
             ]),
             priority: new FormControl(_.last(this.priorities), [
                 Validators.required

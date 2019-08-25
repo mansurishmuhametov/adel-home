@@ -11,6 +11,7 @@
                 <th scope="col">№</th>
                 <th scope="col">Название</th>
                 <th scope="col">Цена</th>
+                <th scope="col">Артикул</th>
                 <th scope="col">Количество</th>
                 <th scope="col">Количество</th>
             </tr>
@@ -22,6 +23,7 @@
                 <td>{{ i + 1 }}</td>
                 <td>{{ product.Name }}</td>
                 <td>{{ product.Price }}</td>
+                <td>{{ product.Article }}</td>
                 <td>{{ 1 }}</td>
                 <td class="text-danger delete-icon hi-green"
                     (click)="delete(product.Id)"

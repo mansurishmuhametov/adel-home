@@ -19,7 +19,6 @@
                 </div>
                 <div class="col-md-5">
                     <input class="form-control"
-                        (change)="nameChanged()"
                         formControlName="name">
                     <ng-container
                         *ngTemplateOutlet="ErrorMessageTemplate; context: { control: UpdateForm.controls.name }">
@@ -32,10 +31,21 @@
                 </div>
                 <div class="col-md-5">
                     <input class="form-control"
-                        (change)="priceChanged()"
                         formControlName="price">
                     <ng-container
                         *ngTemplateOutlet="ErrorMessageTemplate; context: { control: UpdateForm.controls.price }">
+                    </ng-container>
+                </div>
+            </div>
+            <div class="product-row row">
+                <div class="col-md-3">
+                    Артикул <span class="text-danger">*</span>
+                </div>
+                <div class="col-md-5">
+                    <input class="form-control"
+                        formControlName="article">
+                    <ng-container
+                        *ngTemplateOutlet="ErrorMessageTemplate; context: { control: UpdateForm.controls.article }">
                     </ng-container>
                 </div>
             </div>
@@ -125,7 +135,6 @@
                         class="form-control"
                         type="text"
                         rows="5"
-                        (change)="descriptionChanged()"
                         maxlength="1024"
                         formControlName="description">
                     </textarea>

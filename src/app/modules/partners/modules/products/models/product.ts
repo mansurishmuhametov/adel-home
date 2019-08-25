@@ -7,6 +7,7 @@ export class Product {
         private readonly imageId: string,
         private readonly name: string,
         private readonly price: number,
+        private readonly article: number,
         private readonly priority: number,
         private readonly type: string,
         private readonly description: string,
@@ -29,6 +30,10 @@ export class Product {
 
     get Price(): number {
         return this.price;
+    }
+
+    get Article(): number {
+        return this.article;
     }
 
     get Description(): string {
