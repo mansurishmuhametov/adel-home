@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-partners',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PartnersComponent implements OnInit {
 
-    constructor() { }
+    constructor(
+        private router: Router,
+        private activatedRoute: ActivatedRoute
+    ) { }
 
     ngOnInit() {
     }
 
+    public goToHome() {
+        this.router.navigate(['/'], { relativeTo: this.activatedRoute });
+    }
 }

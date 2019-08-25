@@ -5,6 +5,7 @@ import { timer } from 'rxjs';
 
 import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/product';
+import { Image } from '../../models/image';
 
 @Component({
     selector: 'app-product',
@@ -20,7 +21,7 @@ export class ProductComponent implements OnInit, OnDestroy {
         return this.product;
     }
 
-    get Image(): string {
+    get Image(): Image {
         return this.image;
     }
 
@@ -29,7 +30,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     }
 
     private product: Product;
-    private image: string;
+    private image: Image;
     private isLongRequest: boolean;
     private destroy$: Subject<boolean> = new Subject<boolean>();
 

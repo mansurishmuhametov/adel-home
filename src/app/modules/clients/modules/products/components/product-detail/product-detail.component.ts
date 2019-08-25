@@ -89,7 +89,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
                  * теряется контекст
                  */
                 this.zone.run(() => {
-                    this.image = image;
+                    // 01
+                    debugger;
+                    this.image = image.Content;
                 });
             });
     }

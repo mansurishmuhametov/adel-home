@@ -28,21 +28,23 @@ export class ProductsService {
                         item.type,
                         item.description,
                         item.count,
-                        item.material
+                        item.consist
                     );;
                 })
             );
     }
 
-    public getImage(id): Observable<string> {
+    public getImage(id): Observable<Image> {
         return this.webApiService.getById('/images', id)
             .pipe(
-                map((image) => {
-                    if (image) {
-                        return image.content;
-                    } else {
-                        return null;
+                map(item => {
+                    if (!item || !item.id || !item.content) {
+                        throw('Could not load image');
                     }
+                    return new Image(
+                        item.id,
+                        item.content
+                    );
                 })
             );
     }
@@ -51,14 +53,11 @@ export class ProductsService {
         if (!image.Id) {
             return this.webApiService.put('/images', image);
         } else {
-            return of('empty');
+            return this.webApiService.update('/images', image);
         }
     }
 
     public updateProduct(product: Product): Observable<string> {
-        // 17
-        debugger;
-
         if (product.Id) {
             return this.webApiService.update('/products', product);
         } else {
@@ -94,7 +93,7 @@ export class ProductsService {
                             item.type,
                             item.description,
                             item.count,
-                            item.material
+                            item.consist
                         );
 
                         products.push(product);

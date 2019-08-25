@@ -5,12 +5,14 @@ import { takeUntil, switchMap, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Subject } from 'rxjs/Subject';
 import * as _ from 'lodash';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { NotifierService } from 'angular-notifier';
 
 import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/product';
 import { ProductType } from '../../models/product-type';
 import { Image } from '../../models/image';
+import { ImageSafe } from '../../models/image-safe';
 
 @Component({
     selector: 'app-product-update',
@@ -22,15 +24,15 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
     private id: string;
     private product: Product;
     private isChangesSaved: boolean = true;
-    private image: string;
+    private isProcesing: boolean = false;
     private name: string;
     private priorities = [1, 2, 3, 4, 5];
     private priority = _.last(this.priorities);
     private productTypes: any[] = [
         {
             Id: '',
-            Value: 'pajamas',
-            Title: 'Пижама'
+            Value: 'clothes',
+            Title: 'Одежда'
         },
         {
             Id: '',
@@ -56,10 +58,6 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
         return this.priorities;
     }
 
-    get Image(): string {
-        return this.image;
-    }
-
     get Name(): string {
         return this.name;
     }
@@ -72,6 +70,10 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
         return this.id;
     }
 
+    get IsProcesing(): boolean {
+        return this.isProcesing;
+    }
+
     private updateForm: FormGroup;
 
     constructor(
@@ -79,12 +81,12 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
         private readonly router: Router,
         private readonly productsService: ProductsService,
         private readonly zone: NgZone,
-        private readonly sanitizer: DomSanitizer
+        private readonly sanitizer: DomSanitizer,
+        private readonly notifier: NotifierService
     ) { }
 
     public ngOnInit(): void {
         this.refreshUpdateForm();
-
         this.route.paramMap
             .pipe(
                 switchMap((params: ParamMap) => {
@@ -110,15 +112,12 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
                 takeUntil(this.destroy$)
             )
             .subscribe(product => {
-                // final
-                debugger;
-                
                 this.product = product;
                 this.mapToForm(this.product);
             });
     }
 
-    public setImage(imageId: string): void {
+    public mapImageToForm(imageId: string): void {
         this.productsService.getImage(imageId)
             .pipe(
                 takeUntil(this.destroy$)
@@ -130,11 +129,17 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
                  * теряется контекст
                  */
                 this.zone.run(() => {
-                    const trust = this.sanitizer.bypassSecurityTrustUrl(image);
+                    const content: SafeUrl = this.sanitizer.bypassSecurityTrustUrl(image.Content);
+                    const imageSafe: ImageSafe = new ImageSafe(image.Id, content);
 
-                    this.updateForm.controls.image.setValue(trust);
+                    this.updateForm.controls.image.setValue(imageSafe);
                 });
-            });
+            },
+                (error) => {
+                    this.zone.run(() => {
+                        this.notifier.notify('error', 'Не удалось загрузить изображение');
+                    });
+                });
     }
 
     public ngOnDestroy(): void {
@@ -187,20 +192,26 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
         const reader = new FileReader();
         reader.readAsDataURL(files[0]);
         reader.onload = (_event) => {
-            const image: string = reader.result.toString();
-            this.updateForm.controls.image.setValue(image);
+            const content: string = reader.result.toString();
+            const safeContent: SafeUrl = this.sanitizer.bypassSecurityTrustUrl(content);
+            const current: ImageSafe = this.updateForm.controls.image.value;
+            const newImage: ImageSafe = new ImageSafe(current.Id, safeContent);
+
+            // 02
+            debugger;
+
+            this.updateForm.controls.image.setValue(newImage);
         }
     }
 
     private update(): void {
-        const image: Image = new Image(null, this.updateForm.controls.image.value);
+        const imageSafe: ImageSafe = this.updateForm.controls.image.value;
+        const image: Image = new Image(imageSafe.Id, imageSafe.Content['changingThisBreaksApplicationSecurity']);
 
+        this.isProcesing = true;
         this.productsService.updateImage(image)
             .pipe(
                 mergeMap((imageId: string) => {
-                    // 07
-                    debugger;
-
                     const product: Product = this.getProductFromForm(this.id, imageId);
 
                     return this.productsService.updateProduct(product);
@@ -210,14 +221,18 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
             .subscribe(
                 (productId: string) => {
                     if (this.id) {
+                        this.notifier.notify('success', 'Данные сохранены');
                         this.refreshProduct();
                     } else {
+                        this.notifier.notify('success', 'Добавлен новый товар');
                         this.refreshUpdateForm();
                     }
                 },
                 (error) => {
-                    // ошибка
-                    debugger;
+                    this.notifier.notify('success', 'Не удалось сохранить изменения');
+                },
+                () => {
+                    this.isProcesing = false;
                 });
     }
 
@@ -226,15 +241,11 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
         this.updateForm.controls.price.setValue(product.Price);
         this.updateForm.controls.priority.setValue(product.Priority);
         this.updateForm.controls.description.setValue(product.Description);
-        this.updateForm.controls.description.setValue(product.Material);
+        this.updateForm.controls.consist.setValue(product.Consist);
 
         const type: ProductType = _.find(this.productTypes, { Value: product.Type })
         this.updateForm.controls.type.setValue(type);
-        
-        // 01
-        debugger;
-
-        this.setImage(this.product.ImageId);
+        this.mapImageToForm(this.product.ImageId);
     }
 
     private getProductFromForm(productId: string, imageId: string): Product {
@@ -249,7 +260,7 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
             controls.type.value.Value,
             controls.description.value,
             controls.count.value,
-            controls.material.value
+            controls.consist.value
         );
     }
 
@@ -272,10 +283,16 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
             type: new FormControl(null, [
                 Validators.required
             ]),
-            image: new FormControl(null, [
-                Validators.required
-            ]),
-            material: new FormControl('', [
+            image: new FormControl(
+                new ImageSafe(null, {
+                    Content: {
+                        changingThisBreaksApplicationSecurity: null
+                    }
+                }),
+                [
+                    Validators.required
+                ]),
+            consist: new FormControl('', [
                 Validators.minLength(3),
                 Validators.maxLength(50)
             ]),

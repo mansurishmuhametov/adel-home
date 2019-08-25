@@ -11,7 +11,7 @@ export class Product {
         private readonly type: string,
         private readonly description: string,
         private readonly count: number,
-        private readonly material: string
+        private readonly consist: string
 
     ) { }
 
@@ -47,7 +47,7 @@ export class Product {
         return this.count;
     }
 
-    get Material(): string {
-        return this.material;
+    get Consist(): string {
+        return this.consist;
     }
 }

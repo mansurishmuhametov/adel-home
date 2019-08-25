@@ -10,6 +10,7 @@ export class Product {
         private readonly priority: number,
         private readonly type: ProductType,
         private readonly description: string,
+        private readonly consist: string,
         private readonly count: number
     ) { }
 
@@ -31,6 +32,10 @@ export class Product {
 
     get Description(): string {
         return this.description;
+    }
+
+    get Consist(): string {
+        return this.consist;
     }
 
     get ImageId(): string {

@@ -98,7 +98,7 @@
                 </div>
                 <div class="col-md-5">
                     <div class="image-wrapper">
-                        <img [src]="UpdateForm.controls.image.value"
+                        <img [src]="UpdateForm.controls.image.value.Content.changingThisBreaksApplicationSecurity"
                             *ngIf="UpdateForm.controls.image.value; else noContent"
                             class="image">
                     </div>
@@ -106,13 +106,13 @@
             </div>
             <div class="product-row row">
                 <div class="col-md-3">
-                    Материал
+                    Состав
                 </div>
                 <div class="col-md-5">
                     <input class="form-control"
-                        formControlName="material">
+                        formControlName="consist">
                     <ng-container
-                        *ngTemplateOutlet="ErrorMessageTemplate; context: { control: UpdateForm.controls.material }">
+                        *ngTemplateOutlet="ErrorMessageTemplate; context: { control: UpdateForm.controls.consist }">
                     </ng-container>
                 </div>
             </div>
@@ -144,7 +144,7 @@
                             </button>
                             <button class="btn btn-primary save-button"
                                 type="submit"
-                                [disabled]="!UpdateForm.valid">
+                                [disabled]="!UpdateForm.valid || IsProcesing">
                                 <span *ngIf="Id; else addButton">
                                     Сохранить
                                 </span>

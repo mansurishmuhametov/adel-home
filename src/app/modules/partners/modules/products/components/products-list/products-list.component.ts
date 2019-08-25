@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Subject } from 'rxjs/Subject';
+import { NotifierService } from 'angular-notifier';
 
 import { ProductsService } from '../../services/products.service';
 import { ProductFilter } from '../../models/product-filter';
@@ -39,7 +40,8 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     constructor(
         private readonly activatedRoute: ActivatedRoute,
         private readonly router: Router,
-        private readonly productsService: ProductsService
+        private readonly productsService: ProductsService,
+        private readonly notifier: NotifierService
     ) { }
 
     private products: Product[];
@@ -104,11 +106,11 @@ export class ProductsListComponent implements OnInit, OnDestroy {
                 takeUntil(this.destroy$)
             )
             .subscribe((result: any) => {
+                this.notifier.notify('success', 'Удалено успешно');
                 this.refresh();
             },
             (error: string) => {
-                // ошибка
-                debugger;
+                this.notifier.notify('error', 'Ошибка при удаление');
             });
     }
 }

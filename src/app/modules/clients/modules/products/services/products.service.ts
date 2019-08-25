@@ -6,6 +6,7 @@ import * as _ from 'lodash';
 import { Product } from '../models/product';
 import { ProductFilter } from '../models/product-filter';
 import { WebApiService } from '@app-core/modules/web-api/services/web-api.service';
+import { Image } from '../models/image';
 
 @Injectable()
 export class ProductsService {
@@ -25,21 +26,24 @@ export class ProductsService {
                         item.priority,
                         item.type,
                         item.description,
+                        item.consist,
                         item.count
                     );;
                 })
             );
     }
 
-    public getImage(id): Observable<string> {
+    public getImage(id): Observable<Image> {
         return this.webApiService.getById('/images', id)
             .pipe(
-                map((image) => {
-                    if (image) {
-                        return `data:image/jpg;base64,${image.content}`;
-                    } else {
-                        return null;
+                map(item => {
+                    if (!item || !item.id || !item.content) {
+                        throw ('Could not load image');
                     }
+                    return new Image(
+                        item.id,
+                        item.content
+                    );
                 })
             );
     }
@@ -59,6 +63,7 @@ export class ProductsService {
                             item.priority,
                             item.type,
                             item.description,
+                            item.consist,
                             item.count
                         );
 

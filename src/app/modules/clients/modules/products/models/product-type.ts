@@ -1,3 +1,3 @@
 export enum ProductType {
-    pajamas = 'pajamas'
+    clothes = 'clothes'
 }
