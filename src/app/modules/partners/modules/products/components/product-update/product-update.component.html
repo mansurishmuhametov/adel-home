@@ -78,7 +78,6 @@
                         [searchable]="true"
                         [clearable]="true"
                         [items]="ProductTypes"
-                        (change)="typeSelected()"
                         bindLabel="Title"
                         formControlName="type">
                     </ng-select>
@@ -97,9 +96,9 @@
                         type="file"
                         accept='image/*'
                         (change)="preview(file.files)"/>                        
-                    <span *ngIf="message"
+                    <span *ngIf="ImageError"
                         class="text-danger">
-                        {{ message }}
+                        {{ ImageError }}
                     </span>
                 </div>
             </div>
@@ -108,8 +107,8 @@
                 </div>
                 <div class="col-md-5">
                     <div class="image-wrapper">
-                        <img [src]="UpdateForm.controls.image.value.Content.changingThisBreaksApplicationSecurity"
-                            *ngIf="UpdateForm.controls.image.value; else noContent"
+                        <img [src]="SafeImage"
+                            *ngIf="SafeImage; else noContent"
                             class="image">
                     </div>
                 </div>

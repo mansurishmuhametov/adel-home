@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { map, delay, mergeMap, combineLatest } from 'rxjs/operators';
+import { map, mergeMap, combineLatest } from 'rxjs/operators';
 import * as _ from 'lodash';
 
 import { Product } from '../models/product';
 import { ProductFilter } from '../models/product-filter';
 import { WebApiService } from '@app-core/modules/web-api/services/web-api.service';
 import { Image } from '../models/image';
-import { of } from 'rxjs';
 
 @Injectable()
 export class ProductsService {
@@ -30,7 +29,7 @@ export class ProductsService {
                         item.description,
                         item.count,
                         item.consist
-                    );;
+                    );
                 })
             );
     }
@@ -40,7 +39,7 @@ export class ProductsService {
             .pipe(
                 map(item => {
                     if (!item || !item.id || !item.content) {
-                        throw('Could not load image');
+                        throw new Error('Could not load image');
                     }
                     return new Image(
                         item.id,

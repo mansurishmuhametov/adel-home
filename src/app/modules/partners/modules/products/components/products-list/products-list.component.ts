@@ -19,7 +19,6 @@ export class ProductsListComponent implements OnInit, OnDestroy {
     private category = '';
     private destroy$ = new Subject<boolean>();
     private isLoading = false;
-    private index: number = 1;
 
     get IsLoading(): boolean {
         return this.isLoading;
@@ -27,14 +26,6 @@ export class ProductsListComponent implements OnInit, OnDestroy {
 
     get Products(): Product[] {
         return this.products;
-    }
-
-    get Index(): number {
-        return this.index;
-    }
-
-    set Index(value) {
-        this.index = value;
     }
 
     constructor(
@@ -109,8 +100,8 @@ export class ProductsListComponent implements OnInit, OnDestroy {
                 this.notifier.notify('success', 'Удалено успешно');
                 this.refresh();
             },
-            (error: string) => {
-                this.notifier.notify('error', 'Ошибка при удаление');
-            });
+                (error: string) => {
+                    this.notifier.notify('error', 'Ошибка при удаление');
+                });
     }
 }

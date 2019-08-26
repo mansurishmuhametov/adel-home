@@ -12,7 +12,6 @@ import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/product';
 import { ProductType } from '../../models/product-type';
 import { Image } from '../../models/image';
-import { ImageSafe } from '../../models/image-safe';
 
 @Component({
     selector: 'app-product-update',
@@ -22,9 +21,12 @@ import { ImageSafe } from '../../models/image-safe';
 export class ProductUpdateComponent implements OnInit, OnDestroy {
     private destroy$: Subject<boolean> = new Subject<boolean>();
     private id: string;
+    private imageId: string;
+    private imageError: string;
     private product: Product;
-    private isProcesing: boolean = false;
+    private isProcesing = false;
     private name: string;
+    private regExNumber = '^[0-9]*$';
     private priorities = [1, 2, 3, 4, 5];
     private priority = _.last(this.priorities);
     private productTypes: any[] = [
@@ -44,6 +46,14 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
             Title: 'Подушка'
         }
     ];
+
+    get SafeImage(): SafeUrl {
+        return _.get(this.UpdateForm.controls.safeImage, 'value.changingThisBreaksApplicationSecurity');
+    }
+
+    get ImageError(): string {
+        return this.imageError;
+    }
 
     get ProductTypes(): ProductType[] {
         return this.productTypes;
@@ -117,6 +127,8 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
     }
 
     public mapImageToForm(imageId: string): void {
+        this.imageId = imageId;
+
         this.productsService.getImage(imageId)
             .pipe(
                 takeUntil(this.destroy$)
@@ -128,10 +140,9 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
                  * теряется контекст
                  */
                 this.zone.run(() => {
-                    const content: SafeUrl = this.sanitizer.bypassSecurityTrustUrl(image.Content);
-                    const imageSafe: ImageSafe = new ImageSafe(image.Id, content);
+                    const safeImage: SafeUrl = this.sanitizer.bypassSecurityTrustUrl(image.Content);
 
-                    this.updateForm.controls.image.setValue(imageSafe);
+                    this.updateForm.controls.safeImage.setValue(safeImage);
                 });
             },
                 (error) => {
@@ -154,24 +165,19 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
         this.updateForm.controls.priority.setValue(priority);
     }
 
-    public typeSelected(): void {
-        //
-    }
-
     public cancel(): void {
         this.router.navigate(['../../'], { relativeTo: this.route });
     }
 
-    public message: string;
-
     public preview(files): void {
-        if (files.length === 0)
+        if (files.length === 0) {
             return;
+        }
 
         const mimeType = files[0].type;
 
         if (mimeType.match(/image\/*/) == null) {
-            this.message = "Только картинки";
+            this.imageError = 'Только картинки';
 
             return;
         }
@@ -181,19 +187,14 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
         reader.onload = (_event) => {
             const content: string = reader.result.toString();
             const safeContent: SafeUrl = this.sanitizer.bypassSecurityTrustUrl(content);
-            const current: ImageSafe = this.updateForm.controls.image.value;
-            const newImage: ImageSafe = new ImageSafe(current.Id, safeContent);
 
-            // 02
-            debugger;
-
-            this.updateForm.controls.image.setValue(newImage);
-        }
+            this.updateForm.controls.safeImage.setValue(safeContent);
+        };
     }
 
     private update(): void {
-        const imageSafe: ImageSafe = this.updateForm.controls.image.value;
-        const image: Image = new Image(imageSafe.Id, imageSafe.Content['changingThisBreaksApplicationSecurity']);
+        const imageContent: string = this.updateForm.controls.safeImage.value['changingThisBreaksApplicationSecurity'];
+        const image: Image = new Image(this.imageId, imageContent);
 
         this.isProcesing = true;
         this.productsService.updateImage(image)
@@ -231,7 +232,7 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
         this.updateForm.controls.description.setValue(product.Description);
         this.updateForm.controls.consist.setValue(product.Consist);
 
-        const type: ProductType = _.find(this.productTypes, { Value: product.Type })
+        const type: ProductType = _.find(this.productTypes, { Value: product.Type });
         this.updateForm.controls.type.setValue(type);
         this.mapImageToForm(this.product.ImageId);
     }
@@ -262,13 +263,13 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
             ]),
             price: new FormControl(null, [
                 Validators.required,
-                Validators.pattern("^[0-9]*$"),
+                Validators.pattern(this.regExNumber),
                 Validators.min(1),
                 Validators.max(90000)
             ]),
             article: new FormControl(null, [
                 Validators.required,
-                Validators.pattern("^[0-9]*$"),
+                Validators.pattern(this.regExNumber),
                 Validators.minLength(4),
                 Validators.maxLength(20)
             ]),
@@ -278,12 +279,7 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
             type: new FormControl(null, [
                 Validators.required
             ]),
-            image: new FormControl(
-                new ImageSafe(null, {
-                    Content: {
-                        changingThisBreaksApplicationSecurity: null
-                    }
-                }),
+            safeImage: new FormControl(null,
                 [
                     Validators.required
                 ]),

@@ -21,13 +21,13 @@ export class WebApiService {
             .valueChanges();
     }
 
-    public put(url: string, entity: any): Observable<string> {        
+    public put(url: string, entity: any): Observable<string> {
         const repository = this.firebase.database.ref();
         const newPostKey = repository.child(url).push().key;
         const updates = {};
 
         entity.id = newPostKey;
-        updates[`${ url }/${ newPostKey }`] = entity;
+        updates[`${url}/${newPostKey}`] = entity;
 
         return fromPromise(repository.update(updates))
             .pipe(map(() => {
@@ -35,12 +35,12 @@ export class WebApiService {
             }));
     }
 
-    public update(url: string, entity: any): Observable<string> {        
+    public update(url: string, entity: any): Observable<string> {
         const repository = this.firebase.database.ref();
         const postKey = entity.id;
         const updates = {};
 
-        updates[`${ url }/${ postKey }`] = entity;
+        updates[`${url}/${postKey}`] = entity;
 
         return fromPromise(repository.update(updates))
             .pipe(map(() => {
@@ -48,9 +48,9 @@ export class WebApiService {
             }));
     }
 
-    public delete(url: string, entityId: string): Observable<any> {        
+    public delete(url: string, entityId: string): Observable<any> {
         const repository = this.firebase.database.ref();
-        const source: string = `${ url }/${ entityId }`;
+        const source = `${url}/${entityId}`;
 
         return fromPromise(repository.child(source).remove());
     }
