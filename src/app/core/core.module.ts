@@ -7,7 +7,6 @@ import { SharedModule } from '@app-shared/shared.module';
 import { WebApiModule } from './modules/web-api/web-api.module';
 
 import { FooterComponent } from './components/footer/footer.component';
-import { WebApiService } from './modules/web-api/services/web-api.service';
 
 @NgModule({
     imports: [
@@ -23,8 +22,6 @@ import { WebApiService } from './modules/web-api/services/web-api.service';
     exports: [
         FooterComponent
     ],
-    providers: [
-        WebApiService
-    ]
+    providers: []
 })
 export class CoreModule { }

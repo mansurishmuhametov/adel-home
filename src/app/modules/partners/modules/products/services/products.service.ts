@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { map, mergeMap, combineLatest } from 'rxjs/operators';
 import * as _ from 'lodash';
@@ -7,11 +7,15 @@ import { Product } from '../models/product';
 import { ProductFilter } from '../models/product-filter';
 import { WebApiService } from '@app-core/modules/web-api/services/web-api.service';
 import { Image } from '../models/image';
+import { of, never, forkJoin, Subject, Scheduler } from 'rxjs';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class ProductsService {
     constructor(
-        private webApiService: WebApiService
+        private webApiService: WebApiService,
+        private readonly zone: NgZone
     ) { }
 
     public get(id: string): Observable<Product> {
@@ -20,7 +24,6 @@ export class ProductsService {
                 map(item => {
                     return new Product(
                         item.id,
-                        item.imageId,
                         item.name,
                         item.price,
                         item.article,
@@ -28,25 +31,68 @@ export class ProductsService {
                         item.type,
                         item.description,
                         item.count,
-                        item.consist
+                        item.consist,
+                        item.images
                     );
                 })
             );
     }
 
-    public getImage(id): Observable<Image> {
-        return this.webApiService.getById('/images', id)
-            .pipe(
-                map(item => {
-                    if (!item || !item.id || !item.content) {
-                        throw new Error('Could not load image');
+    public getImages(imageIds: string[]): Observable<any> {
+        const subject: Subject<any> = new Subject<any>();
+        
+        const images$: Observable<Image>[] = _.map(imageIds, (id: string) => {
+            return this.webApiService.getById('/images', id)
+                .pipe(
+                    map(item => {
+                        if (!item || !item.id || !item.content) {
+                            // 01
+                            debugger;
+                            throw new Error('Could not load image');
+                        }
+
+                        const im =  new Image(
+                            item.id,
+                            item.content
+                        );
+
+                        subject.next(im);
+
+                        return im;
                     }
-                    return new Image(
-                        item.id,
-                        item.content
-                    );
-                })
-            );
+                ))
+
+        });
+
+        return forkJoin(images$);
+    }
+
+    public update(inputProduct: Product, images: Image[]): Observable<string> {
+        return this.updateImages(images)
+            .pipe(mergeMap((imageIds) => {
+                const product: Product = new Product(
+                    inputProduct.Id,
+                    inputProduct.Name,
+                    inputProduct.Price,
+                    inputProduct.Article,
+                    inputProduct.Priority,
+                    inputProduct.Type,
+                    inputProduct.Description,
+                    inputProduct.Count,
+                    inputProduct.Consist,
+                    imageIds
+                );
+                
+                return this.updateProduct(product);
+            }));
+    }
+
+    public updateImages(images: Image[]): Observable<any> {
+        const ids$: Observable<string>[] = _.map(images, img => {
+            return this.updateImage(img);
+        });
+
+        return forkJoin(...ids$);
     }
 
     public updateImage(image: Image): Observable<string> {
@@ -69,12 +115,20 @@ export class ProductsService {
         return this.get(productId)
             .pipe(
                 mergeMap((product: Product) => {
-                    const imgSub = this.webApiService.delete('/images', product.ImageId);
+                    const deleteImages = this.deleteImages(product.Images);
                     const productSub = this.webApiService.delete('/products', product.Id);
 
-                    return combineLatest(imgSub, productSub);
+                    return combineLatest(deleteImages, productSub);
                 })
             );
+    }
+
+    public deleteImages(imageIds: string[]): any {
+        const removes$: any[] = _.map(imageIds, (id: string) => {
+            return this.webApiService.delete('/images', id);
+        });
+
+        return combineLatest(removes$);
     }
 
     public getAll(filter: ProductFilter): Observable<Product[]> {
@@ -86,7 +140,6 @@ export class ProductsService {
                     _.forEach(productsJson, item => {
                         const product = new Product(
                             item.id,
-                            item.imageId,
                             item.name,
                             item.price,
                             item.article,
@@ -94,7 +147,8 @@ export class ProductsService {
                             item.type,
                             item.description,
                             item.count,
-                            item.consist
+                            item.consist,
+                            item.images
                         );
 
                         products.push(product);

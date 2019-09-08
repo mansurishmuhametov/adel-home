@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { takeUntil, switchMap, mergeMap } from 'rxjs/operators';
+import { takeUntil, switchMap, mergeMap, map } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Subject } from 'rxjs/Subject';
 import * as _ from 'lodash';
@@ -22,7 +22,6 @@ import { Slide } from '../../models/slide';
 export class ProductUpdateComponent implements OnInit, OnDestroy {
     private destroy$: Subject<boolean> = new Subject<boolean>();
     private id: string;
-    private imageId: string;
     private imageError: string;
     private product: Product;
     private isProcesing = false;
@@ -132,22 +131,24 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
             });
     }
 
-    public mapImageToForm(imageId: string): void {
+    public mapImagesToForm(imageIds: string[]): void {
         this.updateForm.controls.slides.setValue([]);
-        this.imageId = imageId;
 
-        this.productsService.getImage(imageId)
+        this.productsService.getImages(imageIds)
             .pipe(
+                map((images) => {
+                    return images;
+                }),
                 takeUntil(this.destroy$)
             )
-            .subscribe(image => {
+            .subscribe((images: Image[]) => {
                 /**
                  * todo: тех долг
                  * каким-то образом из-за сервиса (скорее всего из-за firebase)
                  * теряется контекст
                  */
                 this.zone.run(() => {
-                    this.addSlide(image);
+                    _.forEach(images, img => this.addSlide(img));
                 });
             },
             (error) => {
@@ -220,17 +221,13 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
     }
 
     private update(): void {
-        const imageContent: string = _.head(this.updateForm.controls.slides.value)['Content'];
-        const image: Image = new Image(this.imageId, imageContent);
+        const images: Image[] = _.map(this.updateForm.controls.slides.value, item => item.Value);
+        const product: Product = this.getProductFromForm(this.id, []);
 
         this.isProcesing = true;
-        this.productsService.updateImage(image)
-            .pipe(
-                mergeMap((imageId: string) => {
-                    const product: Product = this.getProductFromForm(this.id, imageId);
 
-                    return this.productsService.updateProduct(product);
-                }),
+        this.productsService.update(product, images)
+            .pipe(
                 takeUntil(this.destroy$)
             )
             .subscribe(
@@ -261,15 +258,14 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
 
         const type: ProductType = _.find(this.productTypes, { Value: product.Type });
         this.updateForm.controls.type.setValue(type);
-        this.mapImageToForm(this.product.ImageId);
+        this.mapImagesToForm(this.product.Images);
     }
 
-    private getProductFromForm(productId: string, imageId: string): Product {
+    private getProductFromForm(productId: string, imageIds: string[]): Product {
         const controls = this.updateForm.controls;
 
         return new Product(
             productId,
-            imageId,
             controls.name.value,
             controls.price.value,
             controls.article.value,
@@ -277,7 +273,8 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
             controls.type.value.Value,
             controls.description.value,
             controls.count.value,
-            controls.consist.value
+            controls.consist.value,
+            imageIds
         );
     }
 
@@ -315,7 +312,8 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
             slides: new FormControl([],
             [
                 Validators.required,
-                Validators.maxLength(1)
+                Validators.minLength(1),
+                Validators.maxLength(3)
             ]),
         });
 

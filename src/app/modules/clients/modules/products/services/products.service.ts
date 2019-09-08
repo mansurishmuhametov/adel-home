@@ -20,7 +20,6 @@ export class ProductsService {
                 map(item => {
                     return new Product(
                         item.id,
-                        item.imageId,
                         item.name,
                         item.price,
                         item.article,
@@ -28,7 +27,8 @@ export class ProductsService {
                         item.type,
                         item.description,
                         item.consist,
-                        item.count
+                        item.count,
+                        item.images
                     );;
                 })
             );
@@ -39,6 +39,8 @@ export class ProductsService {
             .pipe(
                 map(item => {
                     if (!item || !item.id || !item.content) {
+                        // 01
+                        debugger;
                         throw ('Could not load image');
                     }
                     return new Image(
@@ -58,7 +60,6 @@ export class ProductsService {
                     _.forEach(productsJson, item => {
                         const product = new Product(
                             item.id,
-                            item.imageId,
                             item.name,
                             item.price,
                             item.article,
@@ -66,7 +67,8 @@ export class ProductsService {
                             item.type,
                             item.description,
                             item.consist,
-                            item.count
+                            item.count,
+                            item.images
                         );
 
                         products.push(product);

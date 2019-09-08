@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, AsyncSubject } from 'rxjs';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 
 import * as _ from 'lodash';
@@ -55,35 +55,26 @@ export class WebApiService {
         return fromPromise(repository.child(source).remove());
     }
 
-    public getById(url: string, id: string): Observable<any> {
+    public getById(url: string, id: string): Subject<any> {
         const repository = this.firebase.database.ref(url);
-        const subject: Subject<any> = new Subject<any>();
+        const asyncSubject: Subject<any> = new AsyncSubject<any>();
 
-        /**
-         * todo: тех долг
-         * setTimeout это костыль
-         * сложность в том, что при повторном обращение с теми же параметрами
-         * данные возвращаются синхронно и subject.next(result);
-         * отрабатывает раньше, чем return subject;
-         * setTimeout решает эту сложность
-         */
-        setTimeout(() => {
-            repository
-                .orderByChild('id')
-                .equalTo(id)
-                .on('value', (entity) => {
-                    let result: any;
+        repository
+            .orderByChild('id')
+            .equalTo(id)
+            .on('value', (entity) => {
+                let result: any;
 
-                    if (!entity.val()) {
-                        result = null;
-                    } else {
-                        result = _.head(Object.values(entity.val()));
-                    }
+                if (!entity.val()) {
+                    result = null;
+                } else {
+                    result = _.head(Object.values(entity.val()));
+                }
 
-                    subject.next(result);
-                });
-        }, 0);
+                asyncSubject.next(result);
+                asyncSubject.complete();
+            });
 
-        return subject;
+        return asyncSubject;
     }
 }
