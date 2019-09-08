@@ -1,0 +1,50 @@
+@import './src/app/styles/colors.scss';
+
+.images {
+    position: relative;
+
+    &-list {
+        display: inline-block;
+        vertical-align: top;
+        min-width: 60px;
+
+        &-item {
+            &-content {
+                height: 100%;
+            }
+
+            &-wrapper {
+                width: 50px;
+                height: 50px;
+                padding: 6px;
+                margin-bottom: 12px;
+                text-align: center;
+                cursor: pointer;
+            
+                &:hover {
+                    box-shadow: 0 0 0 2px $mainColorGrey;
+                    border-radius: 1px;
+                }
+            }
+
+            &-active {
+                box-shadow: 0 0 0 2px $mainColorRed !important;
+                border-radius: 2px;
+            }
+        }
+    }
+
+    &-main {
+        &-wrapper {
+            display: inline-block;
+            margin-left: 35px;
+            width: 400px;
+            height: 400px;
+            text-align: center;
+        }
+
+        &-content {
+            height: 100%;
+        }
+    }
+}

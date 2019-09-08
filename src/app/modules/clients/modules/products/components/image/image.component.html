@@ -1,0 +1,17 @@
+<div class="images">
+    <div class="images-list">
+        <div *ngFor="let item of Images"
+            (click)="select(item)"
+            class="images-list-item-wrapper"
+            [ngClass]="{ 'images-list-item-active': item === MainImage }">
+            <img [src]="item.Content"
+                class="images-list-item-content">
+        </div>
+    </div>
+    <div class="images-main-wrapper"
+        (click)="onMainImageClick()">
+        <img [src]="MainImage.Content"
+            *ngIf="MainImage"
+            class="images-main-content">
+    </div>
+</div>

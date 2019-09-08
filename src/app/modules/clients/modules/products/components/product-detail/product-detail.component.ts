@@ -7,6 +7,7 @@ import { timer } from 'rxjs';
 
 import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/product';
+import { Image } from '../../models/image';
 
 @Component({
     selector: 'app-product-detail',
@@ -26,11 +27,16 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         return this.image;
     }
 
+    get Images(): Image[] {
+        return this.images;
+    }
+
     get IsLongRequest(): boolean {
         return this.isLongRequest;
     }
 
     private image: string;
+    private images: Image[];
     private isLongRequest: boolean;
 
     constructor(
@@ -89,9 +95,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
                  * теряется контекст
                  */
                 this.zone.run(() => {
-                    // 01
-                    debugger;
                     this.image = image.Content;
+                    const img1: Image = new Image('1', this.image);
+                    this.images = [img1];
                 });
             });
     }
