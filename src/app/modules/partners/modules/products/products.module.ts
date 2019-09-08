@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 import { ProductsRoutingModule } from './products-routing.module';
+import { ImageSliderModule } from '@app/modules/shared/image-slider/image-slider.module';
 
 import { ProductsService } from './services/products.service';
 
@@ -19,7 +20,8 @@ import { ClickStopPropagation } from '@app-shared/components/click-stop-propagat
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
-        NgSelectModule
+        NgSelectModule,
+        ImageSliderModule
     ],
     declarations: [
         ProductsListComponent,

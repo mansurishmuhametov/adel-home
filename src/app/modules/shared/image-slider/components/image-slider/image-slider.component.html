@@ -1,17 +1,25 @@
 <div class="images">
-    <div class="images-list">
-        <div *ngFor="let item of Slides"
-            (click)="select(item)"
-            class="images-list-item-wrapper"
-            [ngClass]="{ 'images-list-item-active': item === MainImage }">
-            <img [src]="item.Content"
-                class="images-list-item-content">
+    <div *ngIf="(Slides && Slides.length) else noData">        
+        <div class="images-list">        
+            <div *ngFor="let item of Slides"
+                (click)="select(item)"
+                class="images-list-item-wrapper"
+                [ngClass]="{ 'images-list-item-active': item === MainSlide }">
+                <img [src]="item.Content"
+                    class="images-list-item-content">
+            </div>
+        </div>
+        <div class="images-main-wrapper"
+            (click)="onMainSlideClick()">
+            <img [src]="MainSlide.Content"
+                *ngIf="MainSlide"
+                class="images-main-content">
         </div>
     </div>
-    <div class="images-main-wrapper"
-        (click)="onMainImageClick()">
-        <img [src]="MainImage.Content"
-            *ngIf="MainImage"
-            class="images-main-content">
-    </div>
+    <ng-template #noData>
+        <!-- todo: Вынести в отдельный компонент -->
+        <div class="noData">
+            Нет данных
+        </div>
+    </ng-template>
 </div>

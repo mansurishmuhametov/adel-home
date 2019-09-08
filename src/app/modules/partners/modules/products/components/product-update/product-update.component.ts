@@ -12,6 +12,7 @@ import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/product';
 import { ProductType } from '../../models/product-type';
 import { Image } from '../../models/image';
+import { Slide } from '../../models/slide';
 
 @Component({
     selector: 'app-product-update',
@@ -29,6 +30,7 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
     private regExNumber = '^[0-9]*$';
     private priorities = [1, 2, 3, 4, 5];
     private priority = _.last(this.priorities);
+    private currentSlide: Slide;
     private productTypes: any[] = [
         {
             Id: '',
@@ -46,10 +48,6 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
             Title: 'Подушка'
         }
     ];
-
-    get SafeImage(): SafeUrl {
-        return _.get(this.UpdateForm.controls.safeImage, 'value.changingThisBreaksApplicationSecurity');
-    }
 
     get ImageError(): string {
         return this.imageError;
@@ -81,6 +79,14 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
 
     get IsProcesing(): boolean {
         return this.isProcesing;
+    }
+
+    get Slides(): Slide[] {
+        return this.updateForm.controls.slides.value;
+    }
+
+    get CurrentSlide(): Slide {
+        return this.currentSlide;
     }
 
     private updateForm: FormGroup;
@@ -127,6 +133,7 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
     }
 
     public mapImageToForm(imageId: string): void {
+        this.updateForm.controls.slides.setValue([]);
         this.imageId = imageId;
 
         this.productsService.getImage(imageId)
@@ -140,16 +147,14 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
                  * теряется контекст
                  */
                 this.zone.run(() => {
-                    const safeImage: SafeUrl = this.sanitizer.bypassSecurityTrustUrl(image.Content);
-
-                    this.updateForm.controls.safeImage.setValue(safeImage);
+                    this.addSlide(image);
                 });
             },
-                (error) => {
-                    this.zone.run(() => {
-                        this.notifier.notify('error', 'Не удалось загрузить изображение');
-                    });
+            (error) => {
+                this.zone.run(() => {
+                    this.notifier.notify('error', 'Не удалось загрузить изображение');
                 });
+            });
     }
 
     public ngOnDestroy(): void {
@@ -187,13 +192,35 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
         reader.onload = (_event) => {
             const content: string = reader.result.toString();
             const safeContent: SafeUrl = this.sanitizer.bypassSecurityTrustUrl(content);
+            const img = new Image(null, content);
 
-            this.updateForm.controls.safeImage.setValue(safeContent);
+            this.addSlide(img);
         };
     }
 
+    public slideSelect(slide: Slide) {
+        this.currentSlide = slide;
+    }
+
+    public removeSlide(slide) {
+        const allSlides: Slide[] = this.updateForm.controls.slides.value;
+
+        _.remove(allSlides, slide);
+
+        this.updateForm.controls.slides.setValue(_.map(allSlides, item => item));
+    }
+
+    private addSlide(image: Image): void {
+        const slide = new Slide(image.Content, image);
+        const allSlides: Slide[] = this.updateForm.controls.slides.value;
+
+        allSlides.push(slide);
+
+        this.updateForm.controls.slides.setValue(_.map(allSlides, item => item));
+    }
+
     private update(): void {
-        const imageContent: string = this.updateForm.controls.safeImage.value['changingThisBreaksApplicationSecurity'];
+        const imageContent: string = _.head(this.updateForm.controls.slides.value)['Content'];
         const image: Image = new Image(this.imageId, imageContent);
 
         this.isProcesing = true;
@@ -279,16 +306,19 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
             type: new FormControl(null, [
                 Validators.required
             ]),
-            safeImage: new FormControl(null,
-                [
-                    Validators.required
-                ]),
             consist: new FormControl('', [
                 Validators.minLength(3),
                 Validators.maxLength(50)
             ]),
             description: new FormControl('', []),
-            count: new FormControl(0, [])
+            count: new FormControl(0, []),
+            slides: new FormControl([],
+            [
+                Validators.required,
+                Validators.maxLength(1)
+            ]),
         });
+
+        this.updateForm.controls.slides.markAsTouched()
     }
 }

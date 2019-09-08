@@ -96,6 +96,10 @@
                         type="file"
                         accept='image/*'
                         (change)="preview(file.files)"/>                        
+                    <div (click)="removeSlide(CurrentSlide)"
+                        class="btn btn-primary">
+                        Удалить картинку
+                    </div>
                     <span *ngIf="ImageError"
                         class="text-danger">
                         {{ ImageError }}
@@ -106,11 +110,13 @@
                 <div class="col-md-3">
                 </div>
                 <div class="col-md-5">
-                    <div class="image-wrapper">
-                        <img [src]="SafeImage"
-                            *ngIf="SafeImage; else noContent"
-                            class="image">
-                    </div>
+                    <app-image-slider
+                        (onSelect)="slideSelect($event)"
+                        [Slides]="Slides">
+                    </app-image-slider>
+                    <ng-container
+                        *ngTemplateOutlet="ErrorMessageTemplate; context: { control: UpdateForm.controls.slides }">
+                    </ng-container>
                 </div>
             </div>
             <div class="product-row row">

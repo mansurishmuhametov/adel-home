@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import * as _ from 'lodash';
 
 import { ISlide } from '../../models/slide.interface';
@@ -10,9 +10,13 @@ import { ISlide } from '../../models/slide.interface';
 })
 export class ImageSliderComponent implements OnChanges {
     private slides: ISlide[];
-    private mainImage: ISlide;
+    private mainSlide: ISlide;
+    private isDelete: boolean;
 
     constructor() { }
+
+    @Output()
+    public onSelect = new EventEmitter<ISlide>();
 
     @Input()
     set Slides(value: ISlide[]) {
@@ -22,19 +26,29 @@ export class ImageSliderComponent implements OnChanges {
         return this.slides;
     }
 
-    get MainImage (): ISlide {
-        return this.mainImage;
+    @Input()
+    set IsDelete(value: boolean) {
+        this.isDelete = value;
+    }
+    get IsDelete(): boolean {
+        return this.isDelete;
+    }
+
+    get MainSlide (): ISlide {
+        return this.mainSlide;
     }
 
     public ngOnChanges(): void {
-        this.mainImage = _.head(this.slides);
+        this.mainSlide = _.head(this.slides);
+        this.onSelect.emit(this.mainSlide);
     }
 
-    public select(image): void {
-        this.mainImage = image;
+    public select(slide): void {
+        this.mainSlide = slide;
+        this.onSelect.emit(slide);
     }
 
-    public onMainImageClick(): void {
+    public onMainSlideClick(): void {
         // do smth
     }
 }
