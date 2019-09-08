@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import * as _ from 'lodash';
 
-import { Image } from '../../models/image';
+import { ISlide } from '../../models/slide.interface';
 
 @Component({
     selector: 'app-image-slider',
@@ -9,25 +9,25 @@ import { Image } from '../../models/image';
     styleUrls: ['./image-slider.component.scss']
 })
 export class ImageSliderComponent implements OnChanges {
-    private images: Image[];
-    private mainImage: Image;
+    private slides: ISlide[];
+    private mainImage: ISlide;
 
     constructor() { }
 
     @Input()
-    set Images(value: Image[]) {
-        this.images = value;
+    set Slides(value: ISlide[]) {
+        this.slides = value;
     }
-    get Images(): Image[] {
-        return this.images;
+    get Slides(): ISlide[] {
+        return this.slides;
     }
 
-    get MainImage (): Image {
+    get MainImage (): ISlide {
         return this.mainImage;
     }
 
     public ngOnChanges(): void {
-        this.mainImage = _.head(this.images);
+        this.mainImage = _.head(this.slides);
     }
 
     public select(image): void {

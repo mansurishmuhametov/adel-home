@@ -8,6 +8,7 @@ import { timer } from 'rxjs';
 import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/product';
 import { Image } from '../../models/image';
+import { ImageSlider } from '../../models/image-slider';
 
 @Component({
     selector: 'app-product-detail',
@@ -27,7 +28,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         return this.image;
     }
 
-    get Images(): Image[] {
+    get Images(): ImageSlider[] {
         return this.images;
     }
 
@@ -36,7 +37,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     }
 
     private image: string;
-    private images: Image[];
+    private images: ImageSlider[];
     private isLongRequest: boolean;
 
     constructor(
@@ -96,8 +97,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
                  */
                 this.zone.run(() => {
                     this.image = image.Content;
-                    const img1: Image = new Image('1', this.image);
-                    this.images = [img1];
+                    const img: Image = new Image('1', this.image);
+                    const imgslider = new ImageSlider(image.Content, img);
+                    this.images = [imgslider];
                 });
             });
     }
