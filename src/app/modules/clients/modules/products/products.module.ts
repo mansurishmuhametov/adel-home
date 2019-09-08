@@ -9,7 +9,7 @@ import { ProductsService } from './services/products.service';
 import { ProductsListComponent } from './components/products-list/products-list.component';
 import { ProductComponent } from './components/product/product.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
-import { ImageComponent } from './components/image/image.component';
+import { ImageSliderComponent } from './components/image-slider/image-slider.component';
 
 @NgModule({
     imports: [
@@ -21,7 +21,7 @@ import { ImageComponent } from './components/image/image.component';
         ProductsListComponent,
         ProductComponent,
         ProductDetailComponent,
-        ImageComponent
+        ImageSliderComponent
     ],
     providers: [
         ProductsService,

@@ -4,11 +4,11 @@ import * as _ from 'lodash';
 import { Image } from '../../models/image';
 
 @Component({
-    selector: 'app-image',
-    templateUrl: './image.component.html',
-    styleUrls: ['./image.component.scss']
+    selector: 'app-image-slider',
+    templateUrl: './image-slider.component.html',
+    styleUrls: ['./image-slider.component.scss']
 })
-export class ImageComponent implements OnChanges {
+export class ImageSliderComponent implements OnChanges {
     private images: Image[];
     private mainImage: Image;
 
