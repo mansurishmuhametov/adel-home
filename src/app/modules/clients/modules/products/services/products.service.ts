@@ -25,7 +25,7 @@ export class ProductsService {
                         item.price,
                         item.article,
                         item.priority,
-                        item.type,
+                        item.category,
                         item.description,
                         item.consist,
                         item.count,
@@ -90,7 +90,7 @@ export class ProductsService {
                             item.price,
                             item.article,
                             item.priority,
-                            item.type,
+                            item.category,
                             item.description,
                             item.consist,
                             item.count,
@@ -100,7 +100,9 @@ export class ProductsService {
                         products.push(product);
                     });
 
-                    return _.orderBy(products, ['priority', 'name'], ['asc', 'asc']);
+                    const filtered: Product[] = _.filter(products, item => item.Category === filter.Category);
+
+                    return _.orderBy(filtered, ['priority', 'name'], ['asc', 'asc']);
                 })
             );
     }

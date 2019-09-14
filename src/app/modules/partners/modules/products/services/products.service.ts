@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { map, mergeMap, combineLatest } from 'rxjs/operators';
 import * as _ from 'lodash';
@@ -14,8 +14,7 @@ import { of, never, forkJoin, Subject, Scheduler } from 'rxjs';
 })
 export class ProductsService {
     constructor(
-        private webApiService: WebApiService,
-        private readonly zone: NgZone
+        private webApiService: WebApiService
     ) { }
 
     public get(id: string): Observable<Product> {
@@ -28,7 +27,7 @@ export class ProductsService {
                         item.price,
                         item.article,
                         item.priority,
-                        item.type,
+                        item.category,
                         item.description,
                         item.count,
                         item.consist,
@@ -74,7 +73,7 @@ export class ProductsService {
                     inputProduct.Price,
                     inputProduct.Article,
                     inputProduct.Priority,
-                    inputProduct.Type,
+                    inputProduct.Category,
                     inputProduct.Description,
                     inputProduct.Count,
                     inputProduct.Consist,
@@ -142,7 +141,7 @@ export class ProductsService {
                             item.price,
                             item.article,
                             item.priority,
-                            item.type,
+                            item.category,
                             item.description,
                             item.count,
                             item.consist,
@@ -152,7 +151,12 @@ export class ProductsService {
                         products.push(product);
                     });
 
-                    return _.orderBy(products, ['name'], ['asc']);
+                    // 02
+                    debugger;
+
+                    const filtered: Product[] = _.filter(products, item => !filter.Category || (item.Category === filter.Category));
+
+                    return _.orderBy(filtered, ['name'], ['asc']);
                 })
             );
     }

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Subject } from 'rxjs/Subject';
+import * as _ from 'lodash';
 
 import { ProductsService } from '../../services/products.service';
 import { ProductFilter } from '../../models/product-filter';
@@ -65,7 +66,7 @@ export class ProductsListComponent implements OnInit, OnDestroy {
             .subscribe(products => {
                 clearTimeout(timer);
 
-                this.products = products;
+                this.products = _.clone(products);
                 this.isLoading = false;
             });
     }

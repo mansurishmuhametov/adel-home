@@ -1,5 +1,4 @@
 import { Category } from './category';
-import { ProductType } from './product-type';
 
 export class Product {
     constructor(
@@ -8,7 +7,7 @@ export class Product {
         private readonly price: number,
         private readonly article: number,
         private readonly priority: number,
-        private readonly type: string,
+        private readonly category: Category,
         private readonly description: string,
         private readonly count: number,
         private readonly consist: string,
@@ -23,8 +22,8 @@ export class Product {
         return this.name;
     }
 
-    get Type(): string {
-        return this.type;
+    get Category(): Category {
+        return this.category;
     }
 
     get Price(): number {

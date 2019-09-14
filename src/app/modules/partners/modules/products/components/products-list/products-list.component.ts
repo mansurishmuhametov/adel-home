@@ -69,6 +69,8 @@ export class ProductsListComponent implements OnInit, OnDestroy {
                 takeUntil(this.destroy$)
             )
             .subscribe(products => {
+                // 01
+                debugger;
                 clearTimeout(timer);
 
                 this.products = products;

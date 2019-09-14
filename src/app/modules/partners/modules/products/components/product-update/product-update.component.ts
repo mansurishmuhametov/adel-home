@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { takeUntil, switchMap, mergeMap, map } from 'rxjs/operators';
@@ -10,9 +10,9 @@ import { NotifierService } from 'angular-notifier';
 
 import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/product';
-import { ProductType } from '../../models/product-type';
 import { Image } from '../../models/image';
 import { Slide } from '../../models/slide';
+import { Category } from '../../models/category';
 
 @Component({
     selector: 'app-product-update',
@@ -30,7 +30,7 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
     private priorities = [1, 2, 3, 4, 5];
     private priority = _.last(this.priorities);
     private currentSlide: Slide;
-    private productTypes: any[] = [
+    private categories: any[] = [
         {
             Id: '',
             Value: 'clothes',
@@ -40,11 +40,6 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
             Id: '',
             Value: 'beddingSet',
             Title: 'Постельный комплект'
-        },
-        {
-            Id: '',
-            Value: 'pillow',
-            Title: 'Подушка'
         }
     ];
 
@@ -52,8 +47,8 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
         return this.imageError;
     }
 
-    get ProductTypes(): ProductType[] {
-        return this.productTypes;
+    get Categories(): Category[] {
+        return this.categories;
     }
 
     get Priority(): number {
@@ -94,7 +89,6 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
         private readonly route: ActivatedRoute,
         private readonly router: Router,
         private readonly productsService: ProductsService,
-        private readonly zone: NgZone,
         private readonly sanitizer: DomSanitizer,
         private readonly notifier: NotifierService
     ) { }
@@ -142,19 +136,10 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
                 takeUntil(this.destroy$)
             )
             .subscribe((images: Image[]) => {
-                /**
-                 * todo: тех долг
-                 * каким-то образом из-за сервиса (скорее всего из-за firebase)
-                 * теряется контекст
-                 */
-                this.zone.run(() => {
-                    _.forEach(images, img => this.addSlide(img));
-                });
+                _.forEach(images, img => this.addSlide(img));
             },
             (error) => {
-                this.zone.run(() => {
-                    this.notifier.notify('error', 'Не удалось загрузить изображение');
-                });
+                this.notifier.notify('error', 'Не удалось загрузить изображение');
             });
     }
 
@@ -256,9 +241,12 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
         this.updateForm.controls.description.setValue(product.Description);
         this.updateForm.controls.consist.setValue(product.Consist);
 
-        const type: ProductType = _.find(this.productTypes, { Value: product.Type });
-        this.updateForm.controls.type.setValue(type);
+        const category: Category = _.find(this.categories, { Value: product.Category });
+        this.updateForm.controls.category.setValue(category);
         this.mapImagesToForm(this.product.Images);
+
+        // 01
+        debugger;
     }
 
     private getProductFromForm(productId: string, imageIds: string[]): Product {
@@ -270,7 +258,7 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
             controls.price.value,
             controls.article.value,
             controls.priority.value,
-            controls.type.value.Value,
+            controls.category.value.Value,
             controls.description.value,
             controls.count.value,
             controls.consist.value,
@@ -279,6 +267,9 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
     }
 
     private refreshUpdateForm() {
+        // 01
+        debugger;
+
         this.updateForm = new FormGroup({
             name: new FormControl('', [
                 Validators.required,
@@ -300,7 +291,7 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
             priority: new FormControl(_.last(this.priorities), [
                 Validators.required
             ]),
-            type: new FormControl(null, [
+            category: new FormControl(null, [
                 Validators.required
             ]),
             consist: new FormControl('', [
@@ -316,6 +307,9 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
                 Validators.maxLength(3)
             ]),
         });
+
+        // 02
+        debugger;
 
         this.updateForm.controls.slides.markAsTouched()
     }

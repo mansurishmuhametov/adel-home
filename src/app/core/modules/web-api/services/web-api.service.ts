@@ -1,24 +1,27 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { Observable, Subject, AsyncSubject } from 'rxjs';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { Observable } from 'rxjs';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 
 import * as _ from 'lodash';
-import { map } from 'rxjs/operators';
+import { map, mergeMap, take } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
 })
 export class WebApiService {
     constructor(
-        private readonly http: HttpClient,
         private readonly firebase: AngularFireDatabase
     ) { }
 
-    public get(url: string): Observable<any[]> {
+    public get(url: string, filter: any = null): Observable<any[]> {
         return this.firebase.list(url)
             .valueChanges();
+
+        // Пример: запросы к firebase с фильтрами
+        // return this.firebase.list(url, ref => {
+        //     return ref.orderByChild('category').equalTo('clothes').limitToFirst(10)
+        // }).valueChanges();
     }
 
     public put(url: string, entity: any): Observable<string> {
@@ -55,26 +58,15 @@ export class WebApiService {
         return fromPromise(repository.child(source).remove());
     }
 
-    public getById(url: string, id: string): Subject<any> {
-        const repository = this.firebase.database.ref(url);
-        const asyncSubject: Subject<any> = new AsyncSubject<any>();
-
-        repository
-            .orderByChild('id')
-            .equalTo(id)
-            .on('value', (entity) => {
-                let result: any;
-
-                if (!entity.val()) {
-                    result = null;
-                } else {
-                    result = _.head(Object.values(entity.val()));
-                }
-
-                asyncSubject.next(result);
-                asyncSubject.complete();
-            });
-
-        return asyncSubject;
+    public getById(url: string, id: string): Observable<any> {
+        return this.firebase.list(url, ref => {
+            return ref.orderByChild('id').equalTo(id).limitToFirst(1);
+        }).valueChanges()
+            .pipe(
+                take(1),
+                map((item: any[]) => {
+                    return _.head(item);
+                })
+            );
     }
 }

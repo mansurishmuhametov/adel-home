@@ -1,3 +1,4 @@
 export enum ProductType {
-    clothes = 'clothes'
+    clothes = 'clothes',    
+    beddingSet = 'beddingSet'
 }

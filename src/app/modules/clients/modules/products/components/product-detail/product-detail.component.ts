@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { takeUntil, switchMap, first, delay, map } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Subject } from 'rxjs/Subject';
@@ -43,9 +43,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
     constructor(
         private readonly route: ActivatedRoute,
-        private readonly router: Router,
-        private readonly productsService: ProductsService,
-        private readonly zone: NgZone
+        private readonly productsService: ProductsService
     ) { }
 
     public ngOnInit(): void {
@@ -94,14 +92,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
                 takeUntil(this.destroy$)
             )
             .subscribe((images: Image[]) => {
-                /**
-                 * todo: тех долг
-                 * каким-то образом из-за сервиса (скорее всего из-за firebase)
-                 * теряется контекст
-                 */
-                this.zone.run(() => {
-                    _.forEach(images, img => this.addSlide(img));
-                });
+                _.forEach(images, img => this.addSlide(img));
             });
     }
 
@@ -119,18 +110,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             .pipe(
                 takeUntil(this.destroy$)
             )
-            .subscribe(image => {
-                /**
-                 * todo: тех долг
-                 * каким-то образом из-за сервиса (скорее всего из-за firebase)
-                 * теряется контекст
-                 */
-                this.zone.run(() => {
-                    this.image = image.Content;
-                    const img: Image = new Image('1', this.image);
-                    const imgslider = new Slide(image.Content, img);
-                    this.slides = [imgslider];
-                });
+            .subscribe(image => {                
+                this.image = image.Content;
+                const img: Image = new Image('1', this.image);
+                const imgslider = new Slide(image.Content, img);
+                this.slides = [imgslider];
             });
     }
 

@@ -4,6 +4,10 @@ const links: NavigationLink[] = [
     {
         name: 'Одежда',
         routerLink: './products/category/clothes'
+    },
+    {
+        name: 'Комплекты',
+        routerLink: './products/category/beddingSet'
     }
 ];
 

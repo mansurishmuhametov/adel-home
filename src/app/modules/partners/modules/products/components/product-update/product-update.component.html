@@ -77,12 +77,12 @@
                     <ng-select
                         [searchable]="true"
                         [clearable]="true"
-                        [items]="ProductTypes"
+                        [items]="Categories"
                         bindLabel="Title"
-                        formControlName="type">
+                        formControlName="category">
                     </ng-select>
                     <ng-container
-                        *ngTemplateOutlet="ErrorMessageTemplate; context: { control: UpdateForm.controls.type }">
+                        *ngTemplateOutlet="ErrorMessageTemplate; context: { control: UpdateForm.controls.category }">
                     </ng-container>
                 </div>
             </div>

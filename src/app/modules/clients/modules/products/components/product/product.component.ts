@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, NgZone } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil, first, delay } from 'rxjs/operators';
 import { timer } from 'rxjs';
@@ -36,8 +36,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     private destroy$: Subject<boolean> = new Subject<boolean>();
 
     constructor(
-        private readonly productsService: ProductsService,
-        private zone: NgZone
+        private readonly productsService: ProductsService
     ) { }
 
     public ngOnInit(): void {
@@ -57,14 +56,7 @@ export class ProductComponent implements OnInit, OnDestroy {
                 takeUntil(this.destroy$)
             )
             .subscribe(image => {
-                /**
-                 * todo: тех долг
-                 * каким-то образом из-за сервиса (скорее всего из-за firebase)
-                 * теряется контекст
-                 */
-                this.zone.run(() => {
-                    this.image = image;
-                });
+                this.image = image;
             });
     }
 
