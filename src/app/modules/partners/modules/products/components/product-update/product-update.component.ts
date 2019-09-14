@@ -34,12 +34,22 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
         {
             Id: '',
             Value: 'clothes',
-            Title: 'Одежда'
+            Title: 'Трикотаж для дома'
         },
         {
             Id: '',
             Value: 'beddingSet',
             Title: 'Постельный комплект'
+        },
+        {
+            Id: '',
+            Value: 'towel',
+            Title: 'Полотенца'
+        },
+        {
+            Id: '',
+            Value: 'accessory',
+            Title: 'Аксессуары'
         }
     ];
 

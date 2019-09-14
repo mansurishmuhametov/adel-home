@@ -2,12 +2,20 @@ import { NavigationLink } from './navigation-link';
 
 const links: NavigationLink[] = [
     {
-        name: 'Одежда',
+        name: 'Трикотаж для дома',
         routerLink: './products/category/clothes'
     },
     {
-        name: 'Комплекты',
+        name: 'Постельные комплекты',
         routerLink: './products/category/beddingSet'
+    },
+    {
+        name: 'Полотенца',
+        routerLink: './products/category/towel'
+    },
+    {
+        name: 'Аксессуары',
+        routerLink: './products/category/accessory'
     }
 ];
 
