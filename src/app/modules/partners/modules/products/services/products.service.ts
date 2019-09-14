@@ -21,7 +21,7 @@ export class ProductsService {
     public get(id: string): Observable<Product> {
         return this.webApiService.getById('/products', id)
             .pipe(
-                map(item => {
+                map(item => {                    
                     return new Product(
                         item.id,
                         item.name,
@@ -46,8 +46,6 @@ export class ProductsService {
                 .pipe(
                     map(item => {
                         if (!item || !item.id || !item.content) {
-                            // 01
-                            debugger;
                             throw new Error('Could not load image');
                         }
 

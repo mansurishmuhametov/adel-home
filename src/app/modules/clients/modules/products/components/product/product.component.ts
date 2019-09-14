@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnDestroy, NgZone } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil, first, delay } from 'rxjs/operators';
 import { timer } from 'rxjs';
+import * as _ from 'lodash';
 
 import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/product';
@@ -49,7 +50,9 @@ export class ProductComponent implements OnInit, OnDestroy {
                 this.isLongRequest = true;
             });
 
-        this.productsService.getImage(this.product.ImageId)
+        const imageId: string = _.head(this.product.Images);
+
+        this.productsService.getImage(imageId)
             .pipe(
                 takeUntil(this.destroy$)
             )

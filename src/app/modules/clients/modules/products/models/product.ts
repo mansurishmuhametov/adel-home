@@ -12,7 +12,8 @@ export class Product {
         private readonly type: ProductType,
         private readonly description: string,
         private readonly consist: string,
-        private readonly count: number
+        private readonly count: number,
+        private readonly images: string[] = []
     ) { }
 
     get Id(): string {
@@ -53,5 +54,9 @@ export class Product {
 
     get Count(): number {
         return this.count;
+    }
+
+    get Images(): string[] {
+        return this.images;
     }
 }

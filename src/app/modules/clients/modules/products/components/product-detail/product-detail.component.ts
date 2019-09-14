@@ -1,14 +1,15 @@
 import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
-import { takeUntil, switchMap, first, delay } from 'rxjs/operators';
+import { takeUntil, switchMap, first, delay, map } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Subject } from 'rxjs/Subject';
 import { timer } from 'rxjs';
+import * as _ from 'lodash';
 
 import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/product';
 import { Image } from '../../models/image';
-import { ImageSlider } from '../../models/image-slider';
+import { Slide } from '../../models/slide';
 
 @Component({
     selector: 'app-product-detail',
@@ -28,8 +29,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         return this.image;
     }
 
-    get Images(): ImageSlider[] {
-        return this.images;
+    get Slides(): Slide[] {
+        return this.slides;
     }
 
     get IsLongRequest(): boolean {
@@ -37,7 +38,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     }
 
     private image: string;
-    private images: ImageSlider[];
+    private slides: Slide[] = [];
     private isLongRequest: boolean;
 
     constructor(
@@ -80,8 +81,37 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             .subscribe(product => {
                 this.product = product;
 
-                this.initImage(this.product.ImageId);
+                this.initImages(this.product.Images);
             });
+    }
+    
+    public initImages(imageIds: string[]): void {
+        this.productsService.getImages(imageIds)
+            .pipe(
+                map((images) => {
+                    return images;
+                }),
+                takeUntil(this.destroy$)
+            )
+            .subscribe((images: Image[]) => {
+                /**
+                 * todo: тех долг
+                 * каким-то образом из-за сервиса (скорее всего из-за firebase)
+                 * теряется контекст
+                 */
+                this.zone.run(() => {
+                    _.forEach(images, img => this.addSlide(img));
+                });
+            });
+    }
+
+    private addSlide(image: Image): void {
+        const slides: Slide[] = _.clone(this.slides);
+        const slide = new Slide(image.Content, image);
+        
+        slides.push(slide);
+
+        this.slides = slides;
     }
 
     public initImage(imageId: string): void {
@@ -98,8 +128,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
                 this.zone.run(() => {
                     this.image = image.Content;
                     const img: Image = new Image('1', this.image);
-                    const imgslider = new ImageSlider(image.Content, img);
-                    this.images = [imgslider];
+                    const imgslider = new Slide(image.Content, img);
+                    this.slides = [imgslider];
                 });
             });
     }

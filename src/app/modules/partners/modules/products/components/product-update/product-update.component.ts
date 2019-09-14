@@ -125,7 +125,7 @@ export class ProductUpdateComponent implements OnInit, OnDestroy {
             .pipe(
                 takeUntil(this.destroy$)
             )
-            .subscribe(product => {
+            .subscribe(product => {                
                 this.product = product;
                 this.mapToForm(this.product);
             });

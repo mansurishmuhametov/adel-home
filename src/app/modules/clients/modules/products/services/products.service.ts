@@ -7,6 +7,7 @@ import { Product } from '../models/product';
 import { ProductFilter } from '../models/product-filter';
 import { WebApiService } from '@app-core/modules/web-api/services/web-api.service';
 import { Image } from '../models/image';
+import { Subject, forkJoin } from 'rxjs';
 
 @Injectable()
 export class ProductsService {
@@ -20,6 +21,7 @@ export class ProductsService {
                 map(item => {
                     return new Product(
                         item.id,
+                        item.imageId,
                         item.name,
                         item.price,
                         item.article,
@@ -33,14 +35,39 @@ export class ProductsService {
                 })
             );
     }
+    
+    public getImages(imageIds: string[]): Observable<any> {
+        const subject: Subject<any> = new Subject<any>();
+        
+        const images$: Observable<Image>[] = _.map(imageIds, (id: string) => {
+            return this.webApiService.getById('/images', id)
+                .pipe(
+                    map(item => {
+                        if (!item || !item.id || !item.content) {
+                            throw new Error('Could not load image');
+                        }
 
-    public getImage(id): Observable<Image> {
+                        const im =  new Image(
+                            item.id,
+                            item.content
+                        );
+
+                        subject.next(im);
+
+                        return im;
+                    }
+                ))
+
+        });
+
+        return forkJoin(images$);
+    }
+
+    public getImage(id: string = ''): Observable<Image> {
         return this.webApiService.getById('/images', id)
             .pipe(
                 map(item => {
                     if (!item || !item.id || !item.content) {
-                        // 01
-                        debugger;
                         throw ('Could not load image');
                     }
                     return new Image(
@@ -60,6 +87,7 @@ export class ProductsService {
                     _.forEach(productsJson, item => {
                         const product = new Product(
                             item.id,
+                            item.imageId,
                             item.name,
                             item.price,
                             item.article,

@@ -15,8 +15,6 @@ export class CategoriesListComponent implements OnInit {
     ngOnInit() {
         this.categoriesService.getAll()
             .subscribe(data => {
-                // 01
-                debugger;
             });
     }
 }
