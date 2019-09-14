@@ -21,7 +21,6 @@ export class ProductsService {
                 map(item => {
                     return new Product(
                         item.id,
-                        item.imageId,
                         item.name,
                         item.price,
                         item.article,
@@ -87,7 +86,6 @@ export class ProductsService {
                     _.forEach(productsJson, item => {
                         const product = new Product(
                             item.id,
-                            item.imageId,
                             item.name,
                             item.price,
                             item.article,
