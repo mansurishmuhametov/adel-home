@@ -1,27 +1,28 @@
-.title {
-    height: 63px;
-    display: flex;
-
-    &__content {
-        align-self: center;
-        width: 100%;
-        position: relative;
-    }
-}
-
 .contacts {
-    margin-left: 50px;
-    position: absolute;
-    top: 0;
+    align-items: center;
     bottom: 0;
     display: inline-flex;
-    align-items: center;
+    margin-left: 50px;
+    padding-left: 15px;
+    padding-right: 15px;
+    position: absolute;
+    top: 0;
 }
 
-.link {    
+.link {
     cursor: pointer;
 }
 
-.logo {   
+.logo {
     cursor: pointer;
+}
+
+.title {
+    display: flex;
+    height: 63px;
+    &__content {
+        align-self: center;
+        position: relative;
+        width: 100%;
+    }
 }

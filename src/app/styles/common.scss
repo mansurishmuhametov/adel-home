@@ -44,3 +44,14 @@ body {
 .text-danger {
     color: $mainColorDanger;
 }
+
+.linkable {
+    cursor: pointer;
+    border: solid 1px transparent;
+    box-shadow: 1px 1px 7px transparent;
+}
+
+.linkable:hover {
+    border: solid 1px #EEE;
+    box-shadow: 1px 1px 7px #EEE;
+}

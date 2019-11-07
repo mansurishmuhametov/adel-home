@@ -10,19 +10,13 @@
         vertical-align: middle;
         padding-left: 28px;
         padding-right: 28px;
-        cursor: pointer;
 
         &:focus {
             outline: none;
         }
-
-        &:hover {
-            border: solid 1px $mainColorGrey;
-            box-shadow: 1px 1px 7px $mainColorGrey;
-        }
     }
 
     &-active {
-        background-color: #EEE;
+        background-color: $mainColorGrey;
     }
 }

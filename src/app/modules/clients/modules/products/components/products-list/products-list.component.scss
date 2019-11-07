@@ -9,12 +9,6 @@
     display: inline-block;
     width: 25%;
     height: 320px;
-    cursor: pointer;
-
-    &:hover {
-        border: solid 1px $mainColorGrey;
-        box-shadow: 1px 1px 7px $mainColorGrey;
-    }
 }
 
 .product-content {

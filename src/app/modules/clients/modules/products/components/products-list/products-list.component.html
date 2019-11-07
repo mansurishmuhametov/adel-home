@@ -4,7 +4,7 @@
         Загрузка...
     </div>
     <div *ngFor="let product of Products"
-        class="product-wrapper"
+        class="product-wrapper linkable"
         (click)="goToDetail(product.Id)">
         <div class="product-content">
             <app-product [Product]="product"></app-product>
